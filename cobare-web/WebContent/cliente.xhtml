@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<h:body>
+		<h1>Cliente</h1>
+		<h:form>
+			<fieldset>
+				<h:panelGrid columns="2">
+					<h:outputText value="Nome: " for="nome" />
+					<h:inputText id="nome" value="#{clienteMB.cliente.nome}" />
+					<h:outputText value="CPF: " for="cpf" />
+					<h:inputText id="cpf" value="#{clienteMB.cliente.cpf}" />
+					<h:outputText value="Logradouro: " for="logradouro" />
+					<h:inputText id="logradouro" value="#{clienteMB.endereco.logradouro}" />
+					<h:outputText value="Número: " for="numero" />
+					<h:inputText id="numero" value="#{clienteMB.endereco.numero}" />
+					<h:outputText value="CEP " for="cep" />
+					<h:inputText id="cep" value="#{clienteMB.endereco.cep}" />
+					<h:outputText value="Complemento: " for="complemento" />
+					<h:inputText id="complemento" value="#{clienteMB.endereco.complemento}" />
+					<h:outputText value="Bairro: " for="bairro" />
+					<h:inputText id="bairro" value="#{clienteMB.endereco.bairro}" />
+					<h:outputText value="Cidade: " for="cidade" />
+					<h:inputText id="cidade" value="#{clienteMB.endereco.cidade}" />
+					<h:outputText value="Estado: " for="estado" />
+					<h:inputText id="estado" value="#{clienteMB.endereco.estado}" />
+					<h:commandButton id="btnSalvar" value="Salvar" action="#{clienteMB.salvar}"/>
+					<h:commandButton id="btnExcluir" value="Excluir" action="#{clienteMB.excluir}"/>
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+	</h:body>
+</html>
