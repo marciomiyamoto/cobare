@@ -77,7 +77,6 @@ public class ProdutoDAO implements IProdutoDAO {
 				System.out.println("");
 			}
 		}
-		
 		return null;
 	}
 
@@ -88,18 +87,22 @@ public class ProdutoDAO implements IProdutoDAO {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE Produto ");
-		sql.append("SET id= ?, ");
-		sql.append("nome = ?, ");
-		sql.append("custoUnitario = ?, ");
-		sql.append("valorVenda = ? ");
-		sql.append("WHERE nome = ?");
+		sql.append("SET ID= ?, ");
+		sql.append("NOME = ?, ");
+		sql.append("CUSTOUNITARIO = ?, ");
+		sql.append("VALORVENDA = ?, ");
+		sql.append("DTCADASTRO = ?, ");
+		sql.append("DTVALIDADE = ? ");
+		sql.append("WHERE ID = ?");
 		
 		try( PreparedStatement stmt = conn.prepareStatement(sql.toString()); ) {
 			stmt.setInt(1, produto.getId());
 			stmt.setString(2, produto.getNome() );
 			stmt.setDouble(3,  produto.getCustoUnitario());
 			stmt.setDouble(4, produto.getValorVenda());
-			stmt.setString(5, "Skol");
+			stmt.setDate(5, new java.sql.Date( produto.getDtCadastro().getTime() ) );
+			stmt.setDate(6, new java.sql.Date(produto.getDataValidade().getTime() ) );
+			stmt.setInt(7, produto.getId());
 			int contador = stmt.executeUpdate();
 			System.out.println("Atualizado! Linhas atualizadas: " + contador);
 		} catch (SQLException ex) {

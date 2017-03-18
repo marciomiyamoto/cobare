@@ -3,6 +3,9 @@
 	<name>teste-web</name>
 	<comment></comment>
 	<projects>
+		<project>EntidadeDominio</project>
+		<project>ProdutoCore</project>
+		<project>ProdutoDominio</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

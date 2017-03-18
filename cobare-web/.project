@@ -3,6 +3,8 @@
 	<name>cobare-web</name>
 	<comment></comment>
 	<projects>
+		<project>cobare-core</project>
+		<project>cobare-dominio</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
