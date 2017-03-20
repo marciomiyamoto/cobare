@@ -93,7 +93,7 @@
 						<f:convertDateTime pattern = "dd-mm-yyyy" />
 					</h:inputText>
 					<p:commandButton value="Gravar" actionListener="#{produtoMB.editar}" update=":principal:tbProduto" oncomplete="PF('dialogEditProduto').hide()"/>
-					<p:commandButton value="Cancelar" oncomplete="PF('dialogNovoProduto').hide()"/>
+					<p:commandButton value="Cancelar" oncomplete="PF('dialogEditProduto').hide()"/>
 				</h:panelGrid>		
 			</fieldset>
 			</h:form>
