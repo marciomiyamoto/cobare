@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:chart type="line" model="#{graficoMB.lineModel1}" style="height:300px;"/>
+			<br/>
+			<br/>
+			<fieldset>
+				<legend>Adicionar linha</legend>
+					<div class="ui-g">
+						<p:outputLabel value="De: "/>
+						<p:calendar/>
+						<p:outputLabel value="à: "/>
+						<p:calendar/>
+						<p:selectOneMenu>
+							<f:selectItem itemLabel="Diário" itemValue="diario" />
+							<f:selectItem itemLabel="Semanal" itemValue="semanal" />
+							<f:selectItem itemLabel="Mensal" itemValue="mensal" />
+						</p:selectOneMenu>
+					</div>
+					<br/>
+					<br/>
+					<div class="ui-g">				
+						<p:selectOneMenu>
+							<f:selectItem itemLabel="Cerveja Brahma" itemValue="cerveja" />
+							<f:selectItem itemLabel="Coca-cola" itemValue="coca" />
+							<f:selectItem itemLabel="Fritas" itemValue="fritas" />
+						</p:selectOneMenu>
+						<h:outputText value="Cor: " />
+		        		<p:colorPicker/>   
+					</div>
+			</fieldset>
+			<p:commandButton value="Adicionar"/>
+		</h:form>
+	</h:body>
+</html>

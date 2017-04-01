@@ -13,8 +13,14 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="D:/Dev/Jars/javax.faces-2.2.8.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cobare-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cobare-dominio"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cobare-web"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/EntidadeDominio"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ProdutoCore"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ProdutoDominio"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Teste"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/teste-cobare-web"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

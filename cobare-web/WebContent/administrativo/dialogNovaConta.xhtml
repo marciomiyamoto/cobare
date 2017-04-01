@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+		<h:form>
+			<div class="ui-g">
+				<div class="ui-g-4">
+					<p:outputLabel value="Doc nº: "/>
+					<p:inputText disabled="true"/>
+				</div>
+				<div class="ui-g-4">
+					<p:outputLabel value="Descrição: "/>
+					<p:inputText/>
+				</div>
+				<div class="ui-g-4">
+					<p:outputLabel value="Tipo "/>
+					<p:selectOneMenu>
+	      				<f:selectItem itemLabel="À pagar" itemValue="À pagar" />
+	      				<f:selectItem itemLabel="À receber" itemValue="À receber" />
+	      			</p:selectOneMenu>
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-8">
+					<p:outputLabel value="Cliente / Fornecedor: "/>
+					<p:selectOneMenu>
+	      				<f:selectItem itemLabel="Ambev" itemValue="Ambev" />
+	      				<f:selectItem itemLabel="Pepsico" itemValue="Pepsico" />
+	      			</p:selectOneMenu>
+				</div>
+				<div class="ui-g-4">
+					<p:outputLabel value="Emissão: "/>
+					<p:calendar/>
+				</div>					
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-4">
+					<p:outputLabel value="Parcelas: "/>
+					<p:inputText/>
+				</div>
+				<div class="ui-g-4">
+					<p:outputLabel value="Valor: "/>
+					<p:inputText/>
+				</div>
+				<div class="ui-g-4">
+					<p:outputLabel value="Vencimento: "/>
+					<p:calendar/>
+				</div>		
+			</div>
+			<br/>
+			<br/>
+			<p:commandButton value="Adicionar produto" oncomplete="PF('dialogNovoProduto').show()"/>
+			<p:commandButton value="Editar produto" disabled="true"/>
+			<p:commandButton value="Excluir produto" disabled="true"/>
+			<br/>
+			<br/>
+			<p:dataTable value="#{contasMB.contas}">
+	     		<p:column headerText="Código" >
+					<h:outputText value="#{codigo}" />
+				</p:column>
+				<p:column headerText="Produto">
+					<h:outputText value="#{produto}" />
+				</p:column>
+				<p:column headerText="Categoria">
+					<h:outputText value="#{categoria}" />
+				</p:column>
+				<p:column headerText="Custo (un)">
+					<h:outputText value="#{custoUn}" />
+				</p:column>
+				<p:column headerText="Qtde">
+					<h:outputText value="#{qtde}" />
+				</p:column>
+				<p:column headerText="Custo (total)">
+					<h:outputText value="#{custoTotal}" />
+				</p:column>
+				<p:column headerText="Un. Medida">
+					<h:outputText value="#{unMedida}" />
+				</p:column>
+				<p:column headerText="Data de validade">
+					<h:outputText value="#{dtValidade}" />
+				</p:column>
+	     	</p:dataTable>
+	     	<br/>
+			<br/>
+			<p:commandButton value="Salvar"/>
+			<p:commandButton value="Cancelar" />
+		</h:form>
+		
+		<p:dialog widgetVar="dialogNovoProduto" resizable="true" modal="false" width="1300">
+		        <ui:include src="dialogNovoProduto.xhtml" />
+		</p:dialog>
+	</h:body>
+</html>

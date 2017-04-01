@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form>
+			<div class="ui-g">
+				<div class="ui-g-9">
+					<p:inputText style="width:100%"/>
+				</div>
+				<div class="ui-g-1">
+					<p:commandButton value="Buscar" style="width:100%"/>
+				</div>
+			</div>
+			<br/>
+			<fieldset>
+				<legend>
+					<h1>Dados do Fornecedor</h1>
+				</legend>
+				<div class="ui-g">
+					<div class="ui-g-1">
+						<p:outputLabel value="Código:"/>
+					</div>
+					<div class="ui-g-6">
+						<p:outputLabel value="Razão Social / Nome:"/>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="CNPJ / CPF:"/>
+					</div>
+				</div>
+				
+				<div class="ui-g">
+					<div class="ui-g-1">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-6">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-3">
+						<p:inputText style="width:100%"/>
+					</div>
+				</div>
+				
+				<div class="ui-g">
+					<div class="ui-g-7">
+						<p:outputLabel value="Nome fantasia:"/>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Inscrição Estadual:"/>
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-7">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-3">
+						<p:inputText style="width:100%"/>
+					</div>
+				</div>
+				
+				<div class="ui-g">
+					<div class="ui-g-6">
+						<p:outputLabel value="Endereço:"/>
+					</div>
+					<div class="ui-g-1">
+						<p:outputLabel value="Número:"/>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Complemento:"/>
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-6">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-1">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-3">
+						<p:inputText style="width:100%"/>
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-4">
+						<p:outputLabel value="Bairro:"/>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Cidade:"/>
+					</div>
+					<div class="ui-g-1">
+						<p:outputLabel value="UF:"/>
+					</div>
+					<div class="ui-g-2">
+						<p:outputLabel value="CEP:"/>
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-4">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-3">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-1">
+						<p:selectOneMenu>
+		      				<f:selectItem itemLabel="SP" itemValue="SP" />
+		      				<f:selectItem itemLabel="RJ" itemValue="RJ" />
+		      				<f:selectItem itemLabel="MG" itemValue="MG" />
+		      				<f:selectItem itemLabel="BA" itemValue="BA"/>
+		      			</p:selectOneMenu>
+					</div>
+					<div class="ui-g-2">
+						<p:inputText style="width:100%"/>
+					</div>
+				</div>
+				
+				<div class="ui-g">
+					<div class="ui-g-2">
+						<p:outputLabel value="Telefone 1:"/>
+					</div>
+					<div class="ui-g-2">
+						<p:outputLabel value="Telefone 2:"/>
+					</div>
+					<div class="ui-g-1"></div>
+					<div class="ui-g-2">
+						<p:outputLabel value="Celular:"/>
+					</div>
+					<div class="ui-g-1"></div>
+					<div class="ui-g-2">
+						<p:outputLabel value="Fax:"/>
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-2">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-2">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-1"></div>
+					<div class="ui-g-2">
+						<p:inputText style="width:100%"/>
+					</div>
+					<div class="ui-g-1"></div>
+					<div class="ui-g-2">
+						<p:inputText style="width:100%"/>
+					</div>
+				</div>
+				
+				<div class="ui-g">
+					<div class="ui-g-10">
+						<p:outputLabel value="Email:"/>
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-10">
+						<p:inputText style="width:100%"/>
+					</div>
+				</div>
+			</fieldset>
+			<br/>
+			<p:commandButton value="Salvar"/>
+			<p:commandButton value="Limpar"/>
+			<p:commandButton value="Excluir"/>
+			<p:commandButton value="Cancelar"/>
+		</h:form>		
+	</h:body>
+</html>

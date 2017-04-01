@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<div class="ui-g">
+			<p:commandButton value="Dar baixa em produto" oncomplete="PF('dialogBaixaProd').show()"/>
+		</div>
+		<br/>
+		<div class="ui-g">
+		<p:inputText style="width:800px"/>
+		<p:selectOneMenu>
+			<f:selectItem itemLabel="Todos" itemValue="Todos" />
+			<f:selectItem itemLabel="Insumos" itemValue="Insumos" />
+			<f:selectItem itemLabel="Porções" itemValue="Porções" />
+			<f:selectItem itemLabel="Drinks" itemValue="Drinks" />
+			<f:selectItem itemLabel="Refrigerantes" itemValue="Refrigerantes"/>
+		</p:selectOneMenu>
+		<p:commandButton value="Buscar"/>		
+		</div>
+		<br/>
+		<p:dataTable value="#{estoqueMB.produtos}">
+     		<p:column headerText="Código" >
+				<h:outputText value="#{codigo}" />
+			</p:column>
+			<p:column headerText="Produto">
+				<h:outputText value="#{produto}" />
+			</p:column>
+			<p:column headerText="Categoria">
+				<h:outputText value="#{categoria}" />
+			</p:column>
+			<p:column headerText="Data de compra">
+				<h:outputText value="#{dtCompra}" />
+			</p:column>
+			<p:column headerText="Qtde">
+				<h:outputText value="#{qtde}" />
+			</p:column>
+			<p:column headerText="Data de validade">
+				<h:outputText value="#{dtValidade}" />
+			</p:column>
+     	</p:dataTable>
+     	
+     	<p:dialog header="Dar Baixa em produto" widgetVar="dialogBaixaProd" resizable="false" modal="true" width="400">
+     		<h:form>
+     			<div class="ui-g">
+     				<p:outputLabel value="Nome ou código do produto:"/>
+     			</div>
+     			<div class="ui-g">
+     				<p:inputText width="200"/>
+     				<p:commandButton value="Buscar"/>
+     			</div>
+     			<div class="ui-g">
+     				<p:outputLabel value="Quantidade em estoque:"/>
+     			</div>
+     			<div class="ui-g">
+     				<p:inputText disabled="true"/>
+     			</div>
+     			<div class="ui-g">
+     				<p:outputLabel value="Quantidade para dar baixa:"/>
+     			</div>
+     			<div class="ui-g">
+     				<p:inputText />
+     			</div>
+     			<div class="ui-g">
+     				<p:outputLabel value="Motivo:"/>
+     			</div>
+     			<div class="ui-g">
+     				<p:inputText height="250"/>
+     			</div>
+     			<div class="ui-g">
+     				<p:commandButton value="Ok" style="float:right;"/>
+     				<p:commandButton value="Cancelar" style="float:right;"/>
+     			</div>
+     			
+     		</h:form>
+     	</p:dialog>
+	</h:body>
+</html>

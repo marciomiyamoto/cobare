@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+		<h:form>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:outputLabel value="Nome do produto: "/>
+				</div>
+				<div class="ui-g-3">
+					<p:outputLabel value="Categoria: "/>
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:inputText style="width:100%"/>
+				</div>
+				<div class="ui-g-3">
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="Insumos" itemValue="Insumos" />
+						<f:selectItem itemLabel="Porções" itemValue="Porções" />
+						<f:selectItem itemLabel="Drinks" itemValue="Drinks" />
+						<f:selectItem itemLabel="Refrigerantes" itemValue="Refrigerantes"/>
+					</p:selectOneMenu>
+				</div>
+				<div class="ui-g-1">
+					<p:commandButton value="+"/>
+				</div>			
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:outputLabel value="Quantidade: "/>
+				</div>
+				<div class="ui-g-3">
+					<p:outputLabel value="Custo unitário: "/>
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:inputText style="width:100%"/>
+				</div>
+				<div class="ui-g-3">
+					<p:inputText style="width:100%" disabled="true"/>
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-2">
+					<p:outputLabel value="Valor de venda (unitário): "/>
+				</div>
+				<div class="ui-g-2">
+					<p:outputLabel value="Data de validade: "/>
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:inputText style="width:100%"/>
+				</div>
+				<div class="ui-g-3">
+					<p:calendar style="width:100%"/>
+				</div>
+			</div>
+			<div class="ui-g"> 
+				<div class="ui-g-3">
+					<p:outputLabel value="Unidade de medida: "/>
+				</div>
+				<div class="ui-g-2">
+					<p:outputLabel value="É produto composto? "/>
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-2">
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="quilo(Kg)" itemValue="quilo" />
+						<f:selectItem itemLabel="grama(g)" itemValue="grama" />
+						<f:selectItem itemLabel="litro(L)" itemValue="litro" />
+						<f:selectItem itemLabel="mililitro(ml)" itemValue="mililitro"/>
+					</p:selectOneMenu>
+				</div>
+				<div class="ui-g-1">
+					<p:commandButton value="+"/>
+				</div>
+				<div class="ui-g-2">
+				<p:selectOneRadio value="#{contasMB.flagProdutoComposto}">
+	      				<f:selectItem itemLabel="Sim" itemValue="true"/>
+	      				<f:selectItem itemLabel="Não" itemValue="false"/>
+	      				<p:ajax update="panel"/>
+	      			</p:selectOneRadio>	
+				</div>
+			</div>
+			<p:panel id="panel" visible="#{contasMB.flagProdutoComposto}" toggleable="true">
+				<fieldset>
+					<legend>Produto composto</legend>
+					<div>
+						<p:selectOneMenu>
+							<f:selectItem itemLabel="Farinha de trigo" itemValue="farinha" />
+							<f:selectItem itemLabel="Ovo" itemValue="ovo" />
+							<f:selectItem itemLabel="Leite" itemValue="leite" />
+							<f:selectItem itemLabel="Acúcar" itemValue="acucar"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="Qtde: "/>
+						<p:inputText/>
+						<p:commandButton value="Adicionar"/>
+					</div>
+					<p:dataTable value="#{contasMB.insumos}">
+						<p:column headerText="Produto">
+							<h:outputText value="#{produto}" />
+						</p:column>
+						<p:column headerText="Qtde">
+							<h:outputText value="#{qtde}" />
+						</p:column>
+						<p:column >
+							<p:commandButton value="remover"/>
+						</p:column>
+					</p:dataTable>
+				</fieldset>
+			</p:panel>
+			<p:commandButton value="Adicionar"/>
+			<p:commandButton value="Cancelar"/>
+		</h:form>
+	</h:body>
+</html>

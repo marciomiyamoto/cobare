@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head></h:head>
+	<h:body>
+		<h:form>
+			<p:commandButton value="Nova conta" oncomplete="PF('dialogNovaConta').show()"/>		
+			<p:commandButton value="Excluir conta"/>
+			<br />
+			<fieldset>
+				<legend>Filtros</legend>
+				<div class="ui-g">
+					<div class="ui-g-2">
+						<p:outputLabel value="Tipo: "/>
+						<p:selectOneMenu>
+		      				<f:selectItem itemLabel="À pagar" itemValue="À pagar" />
+		      				<f:selectItem itemLabel="À receber" itemValue="À receber" />
+		      			</p:selectOneMenu>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Cliente / Fornecedor: "/>
+						<p:inputText/>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Descrição: "/>
+						<p:inputText />
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-2">
+						<p:outputLabel value="Data inicial: "/>
+						<p:calendar/>
+					</div>
+					<div class="ui-g-2">
+						<p:outputLabel value="Data final: "/>
+						<p:calendar/>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Tipo de pagamento: "/>
+						<p:selectOneMenu>
+		      				<f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+		      				<f:selectItem itemLabel="Débito aut." itemValue="Débito aut." />
+		      			</p:selectOneMenu>
+					</div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Situação: "/>
+						<p:selectOneMenu>
+		      				<f:selectItem itemLabel="Pago" itemValue="Pago" />
+		      				<f:selectItem itemLabel="Não pago" itemValue="Não pago" />
+		      				<f:selectItem itemLabel="Vencido" itemValue="Vencido" />
+		      			</p:selectOneMenu>
+					</div>
+					<div class="ui-g-1">
+					</div>
+					<div class="ui-g-1">
+						<p:commandButton value="Filtrar"/>
+					</div>
+				</div>
+			</fieldset>
+			<br />
+			<p:dataTable value="#{contasMB.contas}">
+	     		<p:column headerText="Doc. nº" >
+					<h:outputText value="#{doc}" />
+				</p:column>
+				<p:column headerText="Descrição">
+					<h:outputText value="#{descricao}" />
+				</p:column>
+				<p:column headerText="Tipo">
+					<h:outputText value="#{tipo}" />
+				</p:column>
+				<p:column headerText="Cliente/Fornecedor">
+					<h:outputText value="#{clienteFornecedor}" />
+				</p:column>
+				<p:column headerText="Emissão">
+					<h:outputText value="#{emissao}" />
+				</p:column>
+				<p:column headerText="Data de vencimento">
+					<h:outputText value="#{dtVencimento}" />
+				</p:column>
+				<p:column headerText="Valor">
+					<h:outputText value="#{valor}" />
+				</p:column>
+				<p:column headerText="Parcelas">
+					<h:outputText value="#{parcelas}" />
+				</p:column>
+				<p:column headerText="Situação">
+					<h:outputText value="#{situacao}" />
+				</p:column>
+				<p:column headerText="Data de pagamento">
+					<h:outputText value="#{dtPagamento}" />
+				</p:column>
+				<p:column headerText="Tipo de pagamento">
+					<h:outputText value="#{tipoPagamento}" />
+				</p:column>
+				<p:column headerText="Data de vencimento">
+					<h:outputText value="#{dtVencimento}" />
+				</p:column>
+     	</p:dataTable>
+		</h:form>
+		
+		<p:dialog id="dialog" widgetVar="dialogNovaConta" resizable="true" modal="true" width="1200">
+		        <ui:include src="dialogNovaConta.xhtml" />
+		</p:dialog>
+	</h:body>
+</html>
