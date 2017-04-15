@@ -11,8 +11,10 @@ import cobare.core.IFachada;
 import cobare.core.IStrategy;
 import cobare.core.aplicacao.Resultado;
 import cobare.core.impl.dao.ClienteDAO;
+import cobare.core.impl.dao.FornecedorDAO;
 import cobare.dominio.Cliente;
 import cobare.dominio.EntidadeDominio;
+import cobare.dominio.Fornecedor;
 
 public class Fachada implements IFachada {
 
@@ -39,30 +41,30 @@ public class Fachada implements IFachada {
 		
 		/* Criando instâncias dos DAOs a serem utilizados*/
 		FornecedorDAO forDAO = new FornecedorDAO();
-		ClienteDAO cliDAO = new ClienteDAO();
-		ProdutoDAO proDAO = new ProdutoDAO();
+//		ClienteDAO cliDAO = new ClienteDAO();
+//		ProdutoDAO proDAO = new ProdutoDAO();
 		
 		/* Adicionando cada dao no MAP indexando pelo nome da classe */
 		daos.put(Fornecedor.class.getName(), forDAO);		
-		daos.put(Cliente.class.getName(), cliDAO);		
-		daos.put(Produto.class.getName(), proDAO);
+//		daos.put(Cliente.class.getName(), cliDAO);		
+//		daos.put(Produto.class.getName(), proDAO);
 		
 		
 		/* Criando instâncias de regras de negócio a serem utilizados*/		
-		ValidadorDadosObrigatoriosFornecedor vrDadosObrigatoriosFornecedor = new ValidadorDadosObrigatoriosFornecedor();
-		ValidadorCnpj vCnpj = new ValidadorCnpj();
-		ComplementarDtCadastro cDtCadastro = new ComplementarDtCadastro();
-		ValidadorCpf vCpf = new ValidadorCpf();
-		ValidadorQtdProduto vQtd = new ValidadorQtdProduto();
+//		ValidadorDadosObrigatoriosFornecedor vrDadosObrigatoriosFornecedor = new ValidadorDadosObrigatoriosFornecedor();
+//		ValidadorCnpj vCnpj = new ValidadorCnpj();
+//		ComplementarDtCadastro cDtCadastro = new ComplementarDtCadastro();
+//		ValidadorCpf vCpf = new ValidadorCpf();
+//		ValidadorQtdProduto vQtd = new ValidadorQtdProduto();
 		
 		/* Criando uma lista para conter as regras de negócio de fornencedor
 		 * quando a operação for salvar
 		 */
 		List<IStrategy> rnsSalvarFornecedor = new ArrayList<IStrategy>();
 		/* Adicionando as regras a serem utilizadas na operação salvar do fornecedor*/
-		rnsSalvarFornecedor.add(vrDadosObrigatoriosFornecedor);
-		rnsSalvarFornecedor.add(vCnpj);
-		rnsSalvarFornecedor.add(cDtCadastro);
+//		rnsSalvarFornecedor.add(vrDadosObrigatoriosFornecedor);
+//		rnsSalvarFornecedor.add(vCnpj);
+//		rnsSalvarFornecedor.add(cDtCadastro);
 		
 		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
 		 * por operação  do fornecedor
@@ -81,56 +83,56 @@ public class Fachada implements IFachada {
 		/* Criando uma lista para conter as regras de negócio de cliente
 		 * quando a operação for salvar
 		 */
-		List<IStrategy> rnsSalvarCliente = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
-		rnsSalvarCliente.add(cDtCadastro);		
-		rnsSalvarCliente.add(vCpf);
+//		List<IStrategy> rnsSalvarCliente = new ArrayList<IStrategy>();
+//		/* Adicionando as regras a serem utilizadas na operação salvar do cliente */
+//		rnsSalvarCliente.add(cDtCadastro);		
+//		rnsSalvarCliente.add(vCpf);
 		
 		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
 		 * por operação do cliente
 		 */
-		Map<String, List<IStrategy>> rnsCliente = new HashMap<String, List<IStrategy>>();
+//		Map<String, List<IStrategy>> rnsCliente = new HashMap<String, List<IStrategy>>();
 		/*
 		 * Adiciona a listra de regras na operação salvar no mapa do cliente (lista criada na linha 93)
 		 */
-		rnsCliente.put("SALVAR", rnsSalvarCliente);		
+//		rnsCliente.put("SALVAR", rnsSalvarCliente);		
 		/* Adiciona o mapa(criado na linha 101) com as regras indexadas pelas operações no mapa geral indexado 
 		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
 		 */
-		rns.put(Cliente.class.getName(), rnsCliente);
+//		rns.put(Cliente.class.getName(), rnsCliente);
 		
 		/* Criando uma lista para conter as regras de negócio de produto
 		 * quando a operação for salvar
 		 */
-		List<IStrategy> rnsSalvarProduto = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação salvar do produto */
-		rnsSalvarProduto.add(cDtCadastro);		
-		rnsSalvarProduto.add(vQtd);
+//		List<IStrategy> rnsSalvarProduto = new ArrayList<IStrategy>();
+//		/* Adicionando as regras a serem utilizadas na operação salvar do produto */
+//		rnsSalvarProduto.add(cDtCadastro);		
+//		rnsSalvarProduto.add(vQtd);
 		
 		/* Criando uma lista para conter as regras de negócio de produto
 		 * quando a operação for alterar
 		 */
-		List<IStrategy> rnsAlterarProduto = new ArrayList<IStrategy>();
-		/* Adicionando as regras a serem utilizadas na operação alterar do produto */
-		rnsAlterarProduto.add(vQtd);
+//		List<IStrategy> rnsAlterarProduto = new ArrayList<IStrategy>();
+//		/* Adicionando as regras a serem utilizadas na operação alterar do produto */
+//		rnsAlterarProduto.add(vQtd);
 		
 		/* Cria o mapa que poderá conter todas as listas de regras de negócio específica 
 		 * por operação do produto
 		 */
-		Map<String, List<IStrategy>> rnsProduto = new HashMap<String, List<IStrategy>>();
-		/*
-		 * Adiciona a listra de regras na operação salvar no mapa do produto (lista criada na linha 114)
-		 */
-		rnsProduto.put("SALVAR", rnsSalvarProduto);
-		/*
-		 * Adiciona a listra de regras na operação alterar no mapa do produto (lista criada na linha 122)
-		 */
-		rnsProduto.put("ALTERAR", rnsAlterarProduto);
-		
-		/* Adiciona o mapa(criado na linha 129) com as regras indexadas pelas operações no mapa geral indexado 
-		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
-		 */
-		rns.put(Produto.class.getName(), rnsProduto);
+//		Map<String, List<IStrategy>> rnsProduto = new HashMap<String, List<IStrategy>>();
+//		/*
+//		 * Adiciona a listra de regras na operação salvar no mapa do produto (lista criada na linha 114)
+//		 */
+//		rnsProduto.put("SALVAR", rnsSalvarProduto);
+//		/*
+//		 * Adiciona a listra de regras na operação alterar no mapa do produto (lista criada na linha 122)
+//		 */
+//		rnsProduto.put("ALTERAR", rnsAlterarProduto);
+//		
+//		/* Adiciona o mapa(criado na linha 129) com as regras indexadas pelas operações no mapa geral indexado 
+//		 * pelo nome da entidade. Observe que este mapa (rns) é o mesmo utilizado na linha 88.
+//		 */
+//		rns.put(Produto.class.getName(), rnsProduto);
 		
 	}
 	
@@ -223,32 +225,32 @@ public class Fachada implements IFachada {
 
 	}
 
-	@Override
-	public Resultado consultar(EntidadeDominio entidade) {
-		resultado = new Resultado();
-		String nmClasse = entidade.getClass().getName();	
-		
-		String msg = executarRegras(entidade, "EXCLUIR");
-		
-		
-		if(msg == null){
-			IDAO dao = daos.get(nmClasse);
-			try {
-				
-				resultado.setEntidades(dao.consultar(entidade));
-			} catch (SQLException e) {
-				e.printStackTrace();
-				resultado.setMsg("Não foi possível realizar a consulta!");
-				
-			}
-		}else{
-			resultado.setMsg(msg);
-			
-		}
-		
-		return resultado;
-
-	}
+//	@Override
+//	public Resultado consultar(EntidadeDominio entidade) {
+//		resultado = new Resultado();
+//		String nmClasse = entidade.getClass().getName();	
+//		
+//		String msg = executarRegras(entidade, "EXCLUIR");
+//		
+//		
+//		if(msg == null){
+//			IDAO dao = daos.get(nmClasse);
+//			try {
+//				
+//				resultado.setEntidades(dao.consultar(entidade));
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//				resultado.setMsg("Não foi possível realizar a consulta!");
+//				
+//			}
+//		}else{
+//			resultado.setMsg(msg);
+//			
+//		}
+//		
+//		return resultado;
+//
+//	}
 	
 	@Override
 	public Resultado visualizar(EntidadeDominio entidade) {
@@ -287,6 +289,13 @@ public class Fachada implements IFachada {
 			return msg.toString();
 		else
 			return null;
+	}
+
+
+	@Override
+	public Resultado consultar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

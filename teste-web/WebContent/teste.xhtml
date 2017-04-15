@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f ="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<h1>Produto</h1>
+	</h:head>
+
+	<h:body>
+		<h:form id="principal">			
+			<p:commandButton value="Cadastrar" actionListener="#{produtoMB.callNovo}" update=":formNovoProduto:gerProduto" oncomplete="PF('dialogNovoProduto').show()" />
+			<p:dataTable id="tbProduto" var="produto" value="#{produtoMB.produtos}">
+				<p:column headerText="ID">
+					<h:outputText value="#{produto.id}" />
+				</p:column>
+				<p:column headerText="Data de cadastro">
+					<h:outputText value="#{produto.dtCadastro}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{produto.nome}" />
+				</p:column>
+				<p:column headerText="Custo unitário">
+					<h:outputText value="#{produto.custoUnitario}" />
+				</p:column>
+				<p:column headerText="Valor de venda">
+					<h:outputText value="#{produto.valorVenda}" />
+				</p:column>
+				<p:column headerText="Data de validade">
+					<h:outputText value="#{produto.dataValidade}" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-pencil" title="Editar"
+                       actionListener="#{produtoMB.callEditar(produto)}" update=":formEditProduto:gerProduto" oncomplete="PF('dialogEditProduto').show()" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-close" title="Apagar"
+                       actionListener="#{produtoMB.apagar(produto)}" update="tbProduto" ajax="true"/>
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+		
+		<p:dialog header="Cadastro de produto" widgetVar="dialogNovoProduto" resizable="false" modal="true" showEffect="slide" width="500">
+			<h:form id="formNovoProduto">
+				<fieldset>
+				<legend>Dados do Produto</legend>
+				<h:panelGrid id="gerProduto" columns="2" >
+					<h:outputText value="Id  " for="id" />
+					<h:inputText id="id" value="#{produtoMB.produto.id}"/>
+					<h:outputText value="Nome " for="nome" />
+					<h:inputText id="nome" value="#{produtoMB.produto.nome}"/>
+					<h:outputText value="Custo Unitário " for="custo" />
+					<h:inputText id="custo" value="#{produtoMB.produto.custoUnitario}"/>
+					<h:outputText value="Valor  " for="valor" />
+					<h:inputText id="valor" value="#{produtoMB.produto.valorVenda}"/>
+					<h:outputText value="Data Cadastro  " for="dtCadastro" />
+					<h:inputText id="dtCadastro" value="#{produtoMB.produto.dtCadastro}">
+						<f:convertDateTime pattern = "dd-mm-yyyy" />
+					</h:inputText>
+					<h:outputText value="Data Validade  " for="dtValidade" />
+					<h:inputText id="dtValidade" value="#{produtoMB.produto.dataValidade}">
+						<f:convertDateTime pattern = "dd-mm-yyyy" />
+					</h:inputText>
+					<p:commandButton value="Gravar" actionListener="#{produtoMB.gravarProduto}" update=":principal:tbProduto" oncomplete="PF('dialogNovoProduto').hide()"/>
+					<p:commandButton value="Cancelar" oncomplete="PF('dialogNovoProduto').hide()"/>
+				</h:panelGrid>		
+			</fieldset>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Edição de produto" widgetVar="dialogEditProduto" resizable="false" modal="true" showEffect="slide" width="500">
+			<h:form id="formEditProduto">
+				<fieldset>
+				<legend>Dados do Produto</legend>
+				<h:panelGrid id="gerProduto" columns="2" >
+					<h:outputText value="Id  " for="id" />
+					<h:inputText id="id" disabled="false"  value="#{produtoMB.produto.id}"/>
+					<h:outputText value="Nome " for="nome" />
+					<h:inputText id="nome" value="#{produtoMB.produto.nome}"/>
+					<h:outputText value="Custo Unitário " for="custo" />
+					<h:inputText id="custo" value="#{produtoMB.produto.custoUnitario}"/>
+					<h:outputText value="Valor  " for="valor" />
+					<h:inputText id="valor" value="#{produtoMB.produto.valorVenda}"/>
+					<h:outputText value="Data Cadastro  " for="dtCadastro" />
+					<h:inputText id="dtCadastro" value="#{produtoMB.produto.dtCadastro}">
+						<f:convertDateTime pattern = "dd-mm-yyyy" />
+					</h:inputText>
+					<h:outputText value="Data Validade  " for="dtValidade" />
+					<h:inputText id="dtValidade" value="#{produtoMB.produto.dataValidade}">
+						<f:convertDateTime pattern = "dd-mm-yyyy" />
+					</h:inputText>
+					<p:commandButton value="Gravar" actionListener="#{produtoMB.editar}" update=":principal:tbProduto" oncomplete="PF('dialogEditProduto').hide()"/>
+					<p:commandButton value="Cancelar" oncomplete="PF('dialogEditProduto').hide()"/>
+				</h:panelGrid>		
+			</fieldset>
+			</h:form>
+		</p:dialog>
+	</h:body>
+</html>

@@ -35,13 +35,13 @@
 				
 				<div class="ui-g">
 					<div class="ui-g-1">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="id" style="width:100%" value="#{fornecedorMB.fornecedor.id}"/>
 					</div>
 					<div class="ui-g-6">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="razaoSocial" style="width:100%" value="#{fornecedorMB.fornecedor.razaoSocial}"/>
 					</div>
 					<div class="ui-g-3">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="cnpj" style="width:100%" value="#{fornecedorMB.fornecedor.cnpj}"/>
 					</div>
 				</div>
 				
@@ -55,10 +55,10 @@
 				</div>
 				<div class="ui-g">
 					<div class="ui-g-7">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="nomeFantasia" style="width:100%" value="#{fornecedorMB.fornecedor.nomeFantasia}"/>
 					</div>
 					<div class="ui-g-3">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="inscEstadual" style="width:100%" value="#{fornecedorMB.fornecedor.inscEstadual}"/>
 					</div>
 				</div>
 				
@@ -75,13 +75,13 @@
 				</div>
 				<div class="ui-g">
 					<div class="ui-g-6">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="endereco" style="width:100%" value="#{fornecedorMB.endereco.logradouro}"/>
 					</div>
 					<div class="ui-g-1">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="numero" style="width:100%" value="#{fornecedorMB.endereco.numero}"/>
 					</div>
 					<div class="ui-g-3">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="complemento" style="width:100%" value="#{fornecedorMB.endereco.complemento}"/>
 					</div>
 				</div>
 				<div class="ui-g">
@@ -100,10 +100,10 @@
 				</div>
 				<div class="ui-g">
 					<div class="ui-g-4">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="bairro" style="width:100%" value="#{fornecedorMB.endereco.bairro}"/>
 					</div>
 					<div class="ui-g-3">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="cidade" style="width:100%" value="#{fornecedorMB.endereco.cidade}"/>
 					</div>
 					<div class="ui-g-1">
 						<p:selectOneMenu>
@@ -136,7 +136,7 @@
 				</div>
 				<div class="ui-g">
 					<div class="ui-g-2">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="telefone1" style="width:100%" />
 					</div>
 					<div class="ui-g-2">
 						<p:inputText style="width:100%"/>
@@ -158,12 +158,12 @@
 				</div>
 				<div class="ui-g">
 					<div class="ui-g-10">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="email" style="width:100%" value="#{fornecedorMB.fornecedor.email}"/>
 					</div>
 				</div>
 			</fieldset>
 			<br/>
-			<p:commandButton value="Salvar"/>
+			<p:commandButton value="Salvar" actionListener="#{fornecedorMB.salvar}"/>
 			<p:commandButton value="Limpar"/>
 			<p:commandButton value="Excluir"/>
 			<p:commandButton value="Cancelar"/>

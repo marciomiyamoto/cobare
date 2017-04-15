@@ -63,7 +63,8 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		} finally {
+		} 
+		/*finally {
 			if(ctrlTransacao) {
 				try {
 					pst.close();
@@ -73,11 +74,11 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 					e.printStackTrace();
 				}
 			}
-		}
+		}*/
 		
 		
 		// SALVANDO CIDADE
-		sql = null;
+		sql.setLength(0);
 		sql.append("INSERT INTO Cidade ");
 		sql.append("(id_estado, nome) ");
 		sql.append("VALUES(?, ?)");
@@ -103,7 +104,8 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		} finally {
+		} 
+		/*finally {
 			if(ctrlTransacao) {
 				try {
 					pst.close();
@@ -113,10 +115,10 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 					e.printStackTrace();
 				}
 			}
-		}
+		}*/
 		
 		// SALVANDO ENDERECO
-		sql = null;
+		sql.setLength(0);
 		sql.append("INSERT INTO Endereco ");
 		sql.append("(id_cidade, rua, num, cep, complemento, bairro) ");
 		sql.append("VALUES(?, ?, ?, ?, ?, ?)");
@@ -126,10 +128,10 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 			pst = connection.prepareStatement(sql.toString());
 			pst.setInt(1, idCidade);
 			pst.setString(2, end.getLogradouro());
-			pst.setString(4, end.getNumero());
-			pst.setString(5, end.getCep());
-			pst.setString(6, end.getComplento());
-			pst.setString(7, end.getBairro());
+			pst.setString(3, end.getNumero());
+			pst.setString(4, end.getCep());
+			pst.setString(5, end.getComplemento());
+			pst.setString(6, end.getBairro());
 			pst.executeUpdate();
 			connection.commit();
 		} catch(SQLException e) {
@@ -179,7 +181,7 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 			pst.setString(3, end.getLogradouro());
 			pst.setString(4, end.getNumero());
 			pst.setString(5, end.getCep());
-			pst.setString(6, end.getComplento());
+			pst.setString(6, end.getComplemento());
 			pst.setString(7, end.getBairro());
 			pst.setInt(8, end.getId());
 			pst.executeUpdate();
@@ -238,7 +240,7 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 				endereco.setCep(rs.getString("cep"));
 				endereco.getCidade().setNome(rs.getString("cidade"));
 				endereco.getCidade().getEstado().setNome(rs.getString("estado"));
-				endereco.setComplento(rs.getString("complemento"));
+				endereco.setComplemento(rs.getString("complemento"));
 				endereco.setLogradouro(rs.getString("logradouro"));
 				endereco.setNumero(rs.getString("numero"));
 				enderecos.add(endereco);
@@ -283,7 +285,7 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 				endereco.setCep(rs.getString("cep"));
 				endereco.getCidade().setNome(rs.getString("cidade"));
 				endereco.getCidade().getEstado().setNome(rs.getString("estado"));
-				endereco.setComplento(rs.getString("complemento"));
+				endereco.setComplemento(rs.getString("complemento"));
 				endereco.setLogradouro(rs.getString("logradouro"));
 				endereco.setNumero(rs.getString("num"));
 			}

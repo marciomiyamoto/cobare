@@ -3,6 +3,7 @@ package cobare.core.impl.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cobare.dominio.Endereco;
@@ -36,26 +37,38 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 		TelefoneDAO telDao = new TelefoneDAO();
 		Endereco endereco = new Endereco();
 		Telefone telefone = new Telefone();
+		List<Telefone> telefones = new ArrayList<Telefone>();
 		StringBuilder sql = new StringBuilder();
 		
 		// SALVANDO ENDERECO
 		endereco = fornecedor.getEndereco();
 		endDao.salvar(endereco);
 		// SALVANDO TELEFONE
-		telefone = (Telefone) fornecedor.getTelefones();
-		telDao.salvar(telefone);
-		
-		
-		
-		sql.append("INSERT INTO Telefone ");
-		sql.append("(numero) ");
-		sql.append("VALUES(?)");
+		telefones = fornecedor.getTelefones();
+		telDao.salvar(telefones.get(0));
+		// SALVANDO FORNECEDOR
+		sql.append("INSERT INTO Fornecedor ");
+		sql.append("(id_endereco, "
+				+ "idtelefone, "
+				+ "razao_social, "
+				+ "cnpj, "
+				+ "nome_fantasia, "
+				+ "INSC_ESTADUAL, "
+				+ "EMAIL) ");
+		sql.append("VALUES(?,?,?,?,?,?,?)");
 		
 		try {
 			connection.setAutoCommit(false);
 			
 			pst = connection.prepareStatement(sql.toString());
-			pst.setInt(1,  tel.getNumero());
+			pst.setInt(1, //COMO PEGAR ID ENDEREÇO???);
+					
+			pst.setInt(2, telDao.consultar(fornecedor).getId());
+			pst.setString(3, fornecedor.getRazaoSocial());
+			pst.setString(4, fornecedor.getCnpj());
+			pst.setString(5, fornecedor.getNomeFantasia());
+			pst.setString(6, fornecedor.getInscEstadual());
+			pst.setString(7, fornecedor.getEmail());
 			
 			pst.executeUpdate();			
 			
@@ -78,8 +91,6 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 				}
 			}
 		}
-	}
-
 	}
 
 	@Override
