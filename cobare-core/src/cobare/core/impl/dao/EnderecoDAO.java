@@ -10,6 +10,7 @@ import java.util.List;
 
 import cobare.dominio.Endereco;
 import cobare.dominio.EntidadeDominio;
+import cobare.dominio.Estado;
 
 public class EnderecoDAO extends AbstractJdbcDAO {
 	
@@ -33,24 +34,102 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 		}
 		PreparedStatement pst = null;
 		Endereco end = (Endereco) entidade;
+		int idEstado = 0;
+		int idCidade = 0;
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append("INSERT INTO Endereco(cidade, estado, ");
-		sql.append("logradouro, numero, cep, complemento, bairro, dtCadastro) ");
-		sql.append("VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+		// SALVANDO ESTADO
+		sql.append("INSERT INTO Estado ");
+		sql.append("(nome) ");
+		sql.append("VALUES(?)");
+		
+		try {
+			connection.setAutoCommit(false);
+			
+			pst = connection.prepareStatement(sql.toString(), new String[] {"id"});
+			pst.setString(1,  end.getCidade().getEstado().getNome());
+			
+			pst.executeUpdate();
+			ResultSet generatedKeys = pst.getGeneratedKeys();
+			if (null != generatedKeys && generatedKeys.next()) {
+				idEstado = generatedKeys.getInt(1);
+			}
+			
+			connection.commit();
+		} catch(SQLException e) {
+			try {
+				connection.rollback();
+			} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			if(ctrlTransacao) {
+				try {
+					pst.close();
+					if(ctrlTransacao)
+						connection.close();
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		// SALVANDO CIDADE
+		sql = null;
+		sql.append("INSERT INTO Cidade ");
+		sql.append("(id_estado, nome) ");
+		sql.append("VALUES(?, ?)");
+		
+		try {
+			connection.setAutoCommit(false);
+			
+			pst = connection.prepareStatement(sql.toString(), new String[] {"id"});
+			pst.setInt(1, idEstado);
+			pst.setString(2,  end.getCidade().getNome());
+			
+			pst.executeUpdate();
+			ResultSet generatedKeys = pst.getGeneratedKeys();
+			if (null != generatedKeys && generatedKeys.next()) {
+			     idCidade = generatedKeys.getInt(1);
+			}
+			
+			connection.commit();
+		} catch(SQLException e) {
+			try {
+				connection.rollback();
+			} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			if(ctrlTransacao) {
+				try {
+					pst.close();
+					if(ctrlTransacao)
+						connection.close();
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		// SALVANDO ENDERECO
+		sql = null;
+		sql.append("INSERT INTO Endereco ");
+		sql.append("(id_cidade, rua, num, cep, complemento, bairro) ");
+		sql.append("VALUES(?, ?, ?, ?, ?, ?)");
 		try {
 			connection.setAutoCommit(false);
 			
 			pst = connection.prepareStatement(sql.toString());
-			pst.setString(1, end.getCidade().getNome());
-			pst.setString(2, end.getCidade().getEstado().getNome());
-			pst.setString(3, end.getLogradouro());
+			pst.setInt(1, idCidade);
+			pst.setString(2, end.getLogradouro());
 			pst.setString(4, end.getNumero());
 			pst.setString(5, end.getCep());
 			pst.setString(6, end.getComplento());
 			pst.setString(7, end.getBairro());
-			Timestamp dtCadastro = new Timestamp(end.getDtCadastro().getTime());
-			pst.setTimestamp(8, dtCadastro);
 			pst.executeUpdate();
 			connection.commit();
 		} catch(SQLException e) {
@@ -183,7 +262,46 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 
 	@Override
 	public EntidadeDominio consultar(EntidadeDominio entidade) throws SQLException {
-		// TODO Auto-generated method stub
+		if(connection == null) {
+			abrirConexao();
+		}
+		PreparedStatement pst = null;
+		Endereco end = (Endereco)entidade;
+		Endereco endereco = new Endereco();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM endereco ");
+		sql.append("WHERE id = ? ");
+		try{
+			pst = connection.prepareStatement(sql.toString());
+			pst.setInt(1, end.getId());
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				endereco.setId(rs.getInt("id"));
+				endereco.setDtCadastro(rs.getDate("dtCadastro"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setCep(rs.getString("cep"));
+				endereco.getCidade().setNome(rs.getString("cidade"));
+				endereco.getCidade().getEstado().setNome(rs.getString("estado"));
+				endereco.setComplento(rs.getString("complemento"));
+				endereco.setLogradouro(rs.getString("logradouro"));
+				endereco.setNumero(rs.getString("num"));
+			}
+			return endereco;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(ctrlTransacao) {
+				try {
+					pst.close();
+					if(ctrlTransacao)
+						connection.close();
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		return null;
 	}
 
