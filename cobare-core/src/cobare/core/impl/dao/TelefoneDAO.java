@@ -75,46 +75,46 @@ public class TelefoneDAO extends AbstractJdbcDAO {
 	}
 
 	@Override
-	public List<EntidadeDominio> listar(EntidadeDominio entidade) throws SQLException {
+	public EntidadeDominio visualizar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public EntidadeDominio consultar(EntidadeDominio entidade) throws SQLException {
-		if(connection == null) {
-			abrirConexao();
-		}
-		PreparedStatement pst = null;
-		Telefone tel = (Telefone)entidade;
-		Telefone telefone = new Telefone();
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM telefone ");
-		sql.append("WHERE id = ? ");
-		try{
-			pst = connection.prepareStatement(sql.toString());
-			pst.setInt(1, tel.getId());
-			ResultSet rs = pst.executeQuery();
-			
-			while(rs.next()) {
-				telefone.setId(rs.getInt("id"));
-				telefone.setDtCadastro(rs.getDate("dtCadastro"));
-				telefone.setNumero(rs.getInt("numero"));
-			}
-			return telefone;
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(ctrlTransacao) {
-				try {
-					pst.close();
-					if(ctrlTransacao)
-						connection.close();
-				} catch(SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
+//		if(connection == null) {
+//			abrirConexao();
+//		}
+//		PreparedStatement pst = null;
+//		Telefone tel = (Telefone)entidade;
+//		Telefone telefone = new Telefone();
+//		StringBuilder sql = new StringBuilder();
+//		sql.append("SELECT * FROM telefone ");
+//		sql.append("WHERE id = ? ");
+//		try{
+//			pst = connection.prepareStatement(sql.toString());
+//			pst.setInt(1, tel.getId());
+//			ResultSet rs = pst.executeQuery();
+//			
+//			while(rs.next()) {
+//				telefone.setId(rs.getInt("id"));
+//				telefone.setDtCadastro(rs.getDate("dtCadastro"));
+//				telefone.setNumero(rs.getInt("numero"));
+//			}
+//			return telefone;
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if(ctrlTransacao) {
+//				try {
+//					pst.close();
+//					if(ctrlTransacao)
+//						connection.close();
+//				} catch(SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 		
 		return null;
 	}

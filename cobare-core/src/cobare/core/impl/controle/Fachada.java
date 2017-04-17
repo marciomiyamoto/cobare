@@ -225,39 +225,64 @@ public class Fachada implements IFachada {
 
 	}
 
-//	@Override
-//	public Resultado consultar(EntidadeDominio entidade) {
-//		resultado = new Resultado();
-//		String nmClasse = entidade.getClass().getName();	
-//		
-//		String msg = executarRegras(entidade, "EXCLUIR");
-//		
-//		
-//		if(msg == null){
-//			IDAO dao = daos.get(nmClasse);
-//			try {
-//				
-//				resultado.setEntidades(dao.consultar(entidade));
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//				resultado.setMsg("Não foi possível realizar a consulta!");
-//				
-//			}
-//		}else{
-//			resultado.setMsg(msg);
-//			
-//		}
-//		
-//		return resultado;
-//
-//	}
+	@Override
+	public Resultado consultar(EntidadeDominio entidade) {
+		resultado = new Resultado();
+		String nmClasse = entidade.getClass().getName();	
+		
+		String msg = executarRegras(entidade, "CONSULTAR");
+		
+		
+		if(msg == null){
+			IDAO dao = daos.get(nmClasse);
+			try {
+				
+				resultado.setEntidades(dao.consultar(entidade));
+			} catch (SQLException e) {
+				e.printStackTrace();
+				resultado.setMsg("Não foi possível realizar a consulta!");
+				
+			}
+		}else{
+			resultado.setMsg(msg);
+			
+		}
+		
+		return resultado;
+
+	}
 	
 	@Override
 	public Resultado visualizar(EntidadeDominio entidade) {
+		
 		resultado = new Resultado();
-		resultado.setEntidades(new ArrayList<EntidadeDominio>(1));
-		resultado.getEntidades().add(entidade);		
+		String nmClasse = entidade.getClass().getName();	
+		
+		String msg = executarRegras(entidade, "VISUALIZAR");
+		
+		
+		if(msg == null){
+			IDAO dao = daos.get(nmClasse);
+			try {
+				List<EntidadeDominio> ent = new ArrayList<EntidadeDominio>(1);
+				ent.add( dao.visualizar(entidade));
+				resultado.setEntidades(ent);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				resultado.setMsg("Não foi possível realizar a consulta!");
+				
+			}
+		}else{
+			resultado.setMsg(msg);
+			
+		}
+		
 		return resultado;
+
+//		resultado = new Resultado();
+//		resultado.setEntidades(new ArrayList<EntidadeDominio>(1));
+//		resultado.getEntidades().add(entidade);		
+//		return resultado;
 
 	}
 
@@ -292,10 +317,10 @@ public class Fachada implements IFachada {
 	}
 
 
-	@Override
-	public Resultado consultar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Resultado consultar(EntidadeDominio entidade) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

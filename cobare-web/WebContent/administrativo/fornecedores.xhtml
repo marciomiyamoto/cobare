@@ -7,13 +7,13 @@
 	<h:head>
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<div class="ui-g">
 				<div class="ui-g-9">
 					<p:inputText style="width:100%"/>
 				</div>
 				<div class="ui-g-1">
-					<p:commandButton value="Buscar" style="width:100%"/>
+					<p:commandButton value="Buscar" style="width:100%" actionListener="#{fornecedorMB.visualizar}" update="form" />
 				</div>
 			</div>
 			<br/>
@@ -103,18 +103,21 @@
 						<p:inputText id="bairro" style="width:100%" value="#{fornecedorMB.endereco.bairro}"/>
 					</div>
 					<div class="ui-g-3">
-						<p:inputText id="cidade" style="width:100%" value="#{fornecedorMB.endereco.cidade}"/>
+						<p:inputText id="cidade" style="width:100%" value="#{fornecedorMB.cidade.nome}"/>
 					</div>
-					<div class="ui-g-1">
+					<div class="ui-g-3">
+						<p:inputText id="uf" style="width:100%" value="#{fornecedorMB.estado.nome}"/>
+					</div>
+					<!-- <div class="ui-g-1">
 						<p:selectOneMenu>
 		      				<f:selectItem itemLabel="SP" itemValue="SP" />
 		      				<f:selectItem itemLabel="RJ" itemValue="RJ" />
 		      				<f:selectItem itemLabel="MG" itemValue="MG" />
 		      				<f:selectItem itemLabel="BA" itemValue="BA"/>
 		      			</p:selectOneMenu>
-					</div>
+					</div> -->
 					<div class="ui-g-2">
-						<p:inputText style="width:100%"/>
+						<p:inputText id="cep" style="width:100%" value="#{fornecedorMB.endereco.cep}"/>
 					</div>
 				</div>
 				
@@ -164,8 +167,8 @@
 			</fieldset>
 			<br/>
 			<p:commandButton value="Salvar" actionListener="#{fornecedorMB.salvar}"/>
-			<p:commandButton value="Limpar"/>
-			<p:commandButton value="Excluir"/>
+			<p:commandButton value="Limpar" actionListener="#{fornecedorMB.limpar}" update="@all"/>
+			<p:commandButton value="Excluir" actionListener="#{fornecedorMB.excluir}" update="@all"/>
 			<p:commandButton value="Cancelar"/>
 		</h:form>		
 	</h:body>
