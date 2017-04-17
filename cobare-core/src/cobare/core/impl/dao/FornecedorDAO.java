@@ -46,32 +46,51 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 		// SALVANDO ENDERECO
 		endereco = fornecedor.getEndereco();
 		endDao.salvar(endereco);
+		
+		sql.append("Select id_endereco.nextval from dual");
+		pst = connection.prepareStatement(sql.toString());
+		ResultSet rs = pst.executeQuery();
+		int idEnd = 0;
+		while(rs.next()) {
+			idEnd = rs.getInt("nextval") -1;
+		}
+		
+				
+				
 		// SALVANDO TELEFONE
-		telefones = fornecedor.getTelefones();
-		telDao.salvar(telefones.get(0));
+//		telefones = fornecedor.getTelefones();
+//		telDao.salvar(telefones.get(0));
+//		sql.setLength(0);
+//		sql.append("Select id_endereco.nextval from dual");
+//		pst = connection.prepareStatement(sql.toString());
+//		ResultSet rs2 = pst.executeQuery();
+//		int idTel = 0;
+//		while(rs.next()) {
+//			idTel = rs2.getInt("nextval") -1;
+//		}
 		// SALVANDO FORNECEDOR
+		sql.setLength(0);
 		sql.append("INSERT INTO Fornecedor ");
 		sql.append("(id_endereco, "
-				+ "idtelefone, "
+//				+ "idtelefone, "
 				+ "razao_social, "
 				+ "cnpj, "
 				+ "nome_fantasia, "
 				+ "INSC_ESTADUAL, "
 				+ "EMAIL) ");
-		sql.append("VALUES(?,?,?,?,?,?,?)");
+		sql.append("VALUES(?,?,?,?,?,?)");
 		
 		try {
 			connection.setAutoCommit(false);
 			
 			pst = connection.prepareStatement(sql.toString());
-//			pst.setInt(1, //COMO PEGAR ID ENDEREÇO???);
-					
-//			pst.setInt(2, telDao.consultar(fornecedor).getId());
-			pst.setString(3, fornecedor.getRazaoSocial());
-			pst.setString(4, fornecedor.getCnpj());
-			pst.setString(5, fornecedor.getNomeFantasia());
-			pst.setString(6, fornecedor.getInscEstadual());
-			pst.setString(7, fornecedor.getEmail());
+			pst.setInt(1, idEnd);
+//			pst.setInt(2, idTel);
+			pst.setString(2, fornecedor.getRazaoSocial());
+			pst.setString(3, fornecedor.getCnpj());
+			pst.setString(4, fornecedor.getNomeFantasia());
+			pst.setString(5, fornecedor.getInscEstadual());
+			pst.setString(6, fornecedor.getEmail());
 			
 			pst.executeUpdate();			
 			
