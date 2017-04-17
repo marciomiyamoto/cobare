@@ -234,6 +234,7 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 
 	@Override
 	public void alterar(EntidadeDominio entidade) throws SQLException {
+		
 		if(connection == null) {
 			abrirConexao();
 		}
@@ -241,27 +242,80 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 		Endereco end = (Endereco) entidade;
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append("UPDATE Endereco SET(");
-		sql.append("cidade=?, ");
-		sql.append("estado=?, ");
-		sql.append("logradouro=?, ");
-		sql.append("numero=?, ");
-		sql.append("cep=?" );
-		sql.append("complemento=?" );
-		sql.append("bairro=?" );
-		sql.append("WHERE idEndereco=?");
+		// ATUALIZANDO ESTADO
+		sql.append("UPDATE Estado ");
+		sql.append("SET nome = ? ");
+		sql.append("WHERE id = ?");
+		
+		try {
+			connection.setAutoCommit(false);
+			
+			pst = connection.prepareStatement(sql.toString());
+			pst.setString(1,  end.getCidade().getEstado().getNome());
+			pst.setInt(2, end.getCidade().getEstado().getId());
+			pst.executeUpdate();
+		} catch(SQLException e) {
+			try {
+				connection.rollback();
+			} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} 
+		
+		// ATUALIZANDO CIDADE
+		sql.setLength(0);
+		sql.append("Select id_cidade from endereco where id = ?");
+		pst = connection.prepareStatement(sql.toString());
+		pst.setInt(1, entidade.getId());
+		ResultSet rs = pst.executeQuery();
+		int idCidade = 0;
+		while(rs.next()) {
+			idCidade = rs.getInt("id_cidade");
+		}
+		sql.setLength(0);
+		sql.append("UPDATE Cidade ");
+		sql.append("SET nome = ? ");
+		sql.append("WHERE id = ?");
+		
 		try {
 			connection.setAutoCommit(false);
 			
 			pst = connection.prepareStatement(sql.toString());
 			pst.setString(1, end.getCidade().getNome());
-			pst.setString(2, end.getCidade().getEstado().getNome());
-			pst.setString(3, end.getLogradouro());
-			pst.setString(4, end.getNumero());
-			pst.setString(5, end.getCep());
-			pst.setString(6, end.getComplemento());
-			pst.setString(7, end.getBairro());
-			pst.setInt(8, end.getId());
+			pst.setInt(2, idCidade);
+			pst.executeUpdate();
+		} catch(SQLException e) {
+			try {
+				connection.rollback();
+			} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} 
+		
+		if(connection == null) {
+			abrirConexao();
+		}
+		// ATUALIZANDO ENDERECO
+		sql.setLength(0);
+		sql.append("UPDATE Endereco SET ");
+		sql.append("rua=?, ");
+		sql.append("num=?, ");
+		sql.append("cep=?, " );
+		sql.append("complemento=?, " );
+		sql.append("bairro=? " );
+		sql.append("WHERE id = ?");
+		try {
+			connection.setAutoCommit(false);
+			
+			pst = connection.prepareStatement(sql.toString());
+			pst.setString(1, end.getLogradouro());
+			pst.setString(2, end.getNumero());
+			pst.setString(3, end.getCep());
+			pst.setString(4, end.getComplemento());
+			pst.setString(5, end.getBairro());
+			pst.setInt(6, end.getId());
 			pst.executeUpdate();
 			connection.commit();
 		} catch(SQLException e) {

@@ -123,11 +123,6 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 		}
 		PreparedStatement pst = null;
 		Fornecedor fornecedor = (Fornecedor) entidade;
-		EnderecoDAO endDao = new EnderecoDAO();
-		TelefoneDAO telDao = new TelefoneDAO();
-		Endereco endereco = new Endereco();
-		Telefone telefone = new Telefone();
-		List<Telefone> telefones = new ArrayList<Telefone>();
 		StringBuilder sql = new StringBuilder();
 		
 		// EXCLUINDO ENDERECO
@@ -135,13 +130,8 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 		sql.append("WHERE id = (select id_endereco from fornecedor where id = "+fornecedor.getId()+")");
 		try {
 			connection.setAutoCommit(false);
-			
 			pst = connection.prepareStatement(sql.toString());
-//			pst.setInt(1, fornecedor.getId());
-			
 			pst.executeUpdate();			
-			
-//			connection.commit();
 		} catch(SQLException e) {
 			try {
 				connection.rollback();
@@ -163,9 +153,7 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 			
 			pst = connection.prepareStatement(sql.toString());
 			pst.setInt(1, fornecedor.getId());
-			
 			pst.executeUpdate();			
-			
 			connection.commit();
 		} catch(SQLException e) {
 			try {
@@ -189,7 +177,83 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 
 	@Override
 	public void alterar(EntidadeDominio entidade) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		if(connection == null) {
+			abrirConexao();
+		}
+		PreparedStatement pst = null;
+		Fornecedor fornecedor = (Fornecedor) entidade;
+		EnderecoDAO endDao = new EnderecoDAO();
+		TelefoneDAO telDao = new TelefoneDAO();
+		Endereco endereco = new Endereco();
+		Telefone telefone = new Telefone();
+		List<Telefone> telefones = new ArrayList<Telefone>();
+		StringBuilder sql = new StringBuilder();
+		
+		// ATUALIZANDO ENDERECO
+		
+		sql.append("Select id_endereco from fornecedor where id = ?");
+		pst = connection.prepareStatement(sql.toString());
+		pst.setInt(1, fornecedor.getId());
+		ResultSet rs = pst.executeQuery();
+		int idEnd = 0;
+		while(rs.next()) {
+			idEnd = rs.getInt("id_endereco");
+		}
+		endereco = fornecedor.getEndereco();
+		endereco.setId(idEnd);
+		endDao.alterar(endereco);
+		
+		// ATUALIZANDO TELEFONE
+//		telefones = fornecedor.getTelefones();
+//		telDao.salvar(telefones.get(0));
+//		sql.setLength(0);
+//		sql.append("Select id_endereco.nextval from dual");
+//		pst = connection.prepareStatement(sql.toString());
+//		ResultSet rs2 = pst.executeQuery();
+//		int idTel = 0;
+//		while(rs.next()) {
+//			idTel = rs2.getInt("nextval") -1;
+//		}
+		
+		// ATUALIZANDO FORNECEDOR
+		sql.setLength(0);
+		sql.append("UPDATE Fornecedor SET ");
+		sql.append("razao_social = ?, ");
+		sql.append("cnpj = ?, ");
+		sql.append("nome_fantasia = ?,");
+		sql.append("insc_estadual = ?, ");
+		sql.append("email = ? ");
+		sql.append("WHERE id = ?");
+		try {
+			connection.setAutoCommit(false);
+			pst = connection.prepareStatement(sql.toString());
+			pst.setString(1, fornecedor.getRazaoSocial());
+			pst.setString(2, fornecedor.getCnpj());
+			pst.setString(3, fornecedor.getNomeFantasia());
+			pst.setString(4, fornecedor.getInscEstadual());
+			pst.setString(5, fornecedor.getEmail());
+			pst.setInt(6, fornecedor.getId());
+			pst.executeUpdate();			
+			connection.commit();
+		} catch(SQLException e) {
+			try {
+				connection.rollback();
+			} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			if(ctrlTransacao) {
+				try {
+					pst.close();
+					if(ctrlTransacao)
+						connection.close();
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
 	}
 

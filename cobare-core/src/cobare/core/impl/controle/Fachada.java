@@ -10,10 +10,11 @@ import cobare.core.IDAO;
 import cobare.core.IFachada;
 import cobare.core.IStrategy;
 import cobare.core.aplicacao.Resultado;
-import cobare.core.impl.dao.ClienteDAO;
+import cobare.core.impl.dao.EstadoDAO;
 import cobare.core.impl.dao.FornecedorDAO;
-import cobare.dominio.Cliente;
+import cobare.core.impl.negocio.ValidarDadosObrigatoriosFornecedor;
 import cobare.dominio.EntidadeDominio;
+import cobare.dominio.Estado;
 import cobare.dominio.Fornecedor;
 
 public class Fachada implements IFachada {
@@ -41,17 +42,19 @@ public class Fachada implements IFachada {
 		
 		/* Criando instâncias dos DAOs a serem utilizados*/
 		FornecedorDAO forDAO = new FornecedorDAO();
+		EstadoDAO estDAO = new EstadoDAO();
 //		ClienteDAO cliDAO = new ClienteDAO();
 //		ProdutoDAO proDAO = new ProdutoDAO();
 		
 		/* Adicionando cada dao no MAP indexando pelo nome da classe */
-		daos.put(Fornecedor.class.getName(), forDAO);		
+		daos.put(Fornecedor.class.getName(), forDAO);
+		daos.put(Estado.class.getName(), estDAO);
 //		daos.put(Cliente.class.getName(), cliDAO);		
 //		daos.put(Produto.class.getName(), proDAO);
 		
 		
 		/* Criando instâncias de regras de negócio a serem utilizados*/		
-//		ValidadorDadosObrigatoriosFornecedor vrDadosObrigatoriosFornecedor = new ValidadorDadosObrigatoriosFornecedor();
+		ValidarDadosObrigatoriosFornecedor vrDadosObrigatoriosFornecedor = new ValidarDadosObrigatoriosFornecedor();
 //		ValidadorCnpj vCnpj = new ValidadorCnpj();
 //		ComplementarDtCadastro cDtCadastro = new ComplementarDtCadastro();
 //		ValidadorCpf vCpf = new ValidadorCpf();
@@ -62,7 +65,7 @@ public class Fachada implements IFachada {
 		 */
 		List<IStrategy> rnsSalvarFornecedor = new ArrayList<IStrategy>();
 		/* Adicionando as regras a serem utilizadas na operação salvar do fornecedor*/
-//		rnsSalvarFornecedor.add(vrDadosObrigatoriosFornecedor);
+		rnsSalvarFornecedor.add(vrDadosObrigatoriosFornecedor);
 //		rnsSalvarFornecedor.add(vCnpj);
 //		rnsSalvarFornecedor.add(cDtCadastro);
 		

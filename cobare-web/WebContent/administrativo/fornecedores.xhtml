@@ -7,10 +7,12 @@
 	<h:head>
 	</h:head>
 	<h:body>
+		<p:tooltip />
 		<h:form id="form">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 			<div class="ui-g">
 				<div class="ui-g-9">
-					<p:inputText style="width:100%"/>
+					<p:inputText style="width:100%" value="#{fornecedorMB.indexBusca}"/>
 				</div>
 				<div class="ui-g-1">
 					<p:commandButton value="Buscar" style="width:100%" actionListener="#{fornecedorMB.visualizar}" update="form" />
@@ -26,16 +28,16 @@
 						<p:outputLabel value="Código:"/>
 					</div>
 					<div class="ui-g-6">
-						<p:outputLabel value="Razão Social / Nome:"/>
+						<p:outputLabel value="*Razão Social / Nome:"/>
 					</div>
 					<div class="ui-g-3">
-						<p:outputLabel value="CNPJ / CPF:"/>
+						<p:outputLabel value="*CNPJ / CPF:"/>
 					</div>
 				</div>
 				
 				<div class="ui-g">
 					<div class="ui-g-1">
-						<p:inputText id="id" style="width:100%" value="#{fornecedorMB.fornecedor.id}"/>
+						<p:inputText id="id" style="width:100%" value="#{fornecedorMB.fornecedor.id}" readonly="true"/>
 					</div>
 					<div class="ui-g-6">
 						<p:inputText id="razaoSocial" style="width:100%" value="#{fornecedorMB.fornecedor.razaoSocial}"/>
@@ -47,10 +49,10 @@
 				
 				<div class="ui-g">
 					<div class="ui-g-7">
-						<p:outputLabel value="Nome fantasia:"/>
+						<p:outputLabel value="*Nome fantasia:"/>
 					</div>
 					<div class="ui-g-3">
-						<p:outputLabel value="Inscrição Estadual:"/>
+						<p:outputLabel value="*Inscrição Estadual:"/>
 					</div>
 				</div>
 				<div class="ui-g">
@@ -64,10 +66,10 @@
 				
 				<div class="ui-g">
 					<div class="ui-g-6">
-						<p:outputLabel value="Endereço:"/>
+						<p:outputLabel value="*Rua / logradouro:"/>
 					</div>
 					<div class="ui-g-1">
-						<p:outputLabel value="Número:"/>
+						<p:outputLabel value="*Número:"/>
 					</div>
 					<div class="ui-g-3">
 						<p:outputLabel value="Complemento:"/>
@@ -86,16 +88,16 @@
 				</div>
 				<div class="ui-g">
 					<div class="ui-g-4">
-						<p:outputLabel value="Bairro:"/>
+						<p:outputLabel value="*Bairro:"/>
 					</div>
 					<div class="ui-g-3">
-						<p:outputLabel value="Cidade:"/>
+						<p:outputLabel value="*Cidade:"/>
 					</div>
 					<div class="ui-g-1">
-						<p:outputLabel value="UF:"/>
+						<p:outputLabel value="*UF:"/>
 					</div>
 					<div class="ui-g-2">
-						<p:outputLabel value="CEP:"/>
+						<p:outputLabel value="*CEP:"/>
 					</div>
 				</div>
 				<div class="ui-g">
@@ -105,7 +107,7 @@
 					<div class="ui-g-3">
 						<p:inputText id="cidade" style="width:100%" value="#{fornecedorMB.cidade.nome}"/>
 					</div>
-					<div class="ui-g-3">
+					<div class="ui-g-1">
 						<p:inputText id="uf" style="width:100%" value="#{fornecedorMB.estado.nome}"/>
 					</div>
 					<!-- <div class="ui-g-1">
@@ -167,6 +169,7 @@
 			</fieldset>
 			<br/>
 			<p:commandButton value="Salvar" actionListener="#{fornecedorMB.salvar}"/>
+			<p:commandButton value="Atualizar" actionListener="#{fornecedorMB.atualizar}"/>
 			<p:commandButton value="Limpar" actionListener="#{fornecedorMB.limpar}" update="@all"/>
 			<p:commandButton value="Excluir" actionListener="#{fornecedorMB.excluir}" update="@all"/>
 			<p:commandButton value="Cancelar"/>
