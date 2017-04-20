@@ -45,18 +45,9 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 		
 		// SALVANDO ENDERECO
 		endereco = fornecedor.getEndereco();
+		endDao.ctrlTransacao = false;
 		endDao.salvar(endereco);
 		
-		sql.append("Select id_endereco.nextval from dual");
-		pst = connection.prepareStatement(sql.toString());
-		ResultSet rs = pst.executeQuery();
-		int idEnd = 0;
-		while(rs.next()) {
-			idEnd = rs.getInt("nextval") -1;
-		}
-		
-				
-				
 		// SALVANDO TELEFONE
 //		telefones = fornecedor.getTelefones();
 //		telDao.salvar(telefones.get(0));
@@ -84,7 +75,7 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 			connection.setAutoCommit(false);
 			
 			pst = connection.prepareStatement(sql.toString());
-			pst.setInt(1, idEnd);
+			pst.setInt(1, endereco.getId());
 //			pst.setInt(2, idTel);
 			pst.setString(2, fornecedor.getRazaoSocial());
 			pst.setString(3, fornecedor.getCnpj());

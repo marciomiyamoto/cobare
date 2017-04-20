@@ -102,7 +102,7 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 		try {
 			connection.setAutoCommit(false);
 			
-			pst = connection.prepareStatement(sql.toString());
+			pst = connection.prepareStatement(sql.toString(), new String[] {"id"});
 			pst.setInt(1, idCidade);
 			pst.setString(2, end.getLogradouro());
 			pst.setString(3, end.getNumero());
@@ -110,6 +110,10 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 			pst.setString(5, end.getComplemento());
 			pst.setString(6, end.getBairro());
 			pst.executeUpdate();
+			ResultSet generatedKeys = pst.getGeneratedKeys();
+			if (null != generatedKeys && generatedKeys.next()) {
+			     end.setId(generatedKeys.getInt(1));
+			}
 			connection.commit();
 		} catch(SQLException e) {
 			try {
