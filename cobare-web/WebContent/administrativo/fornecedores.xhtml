@@ -107,17 +107,18 @@
 					<div class="ui-g-3">
 						<p:inputText id="cidade" style="width:100%" value="#{fornecedorMB.cidade.nome}"/>
 					</div>
-					<div class="ui-g-1">
-						<p:inputText id="uf" style="width:100%" value="#{fornecedorMB.estado.nome}"/>
-					</div>
 					<!-- <div class="ui-g-1">
-						<p:selectOneMenu>
-		      				<f:selectItem itemLabel="SP" itemValue="SP" />
+						<p:inputText id="uf" style="width:100%" value="#{fornecedorMB.estado.nome}"/>
+					</div> -->
+					<div class="ui-g-1">
+						<p:selectOneMenu value="#{fornecedorMB.estado.id}">
+							<f:selectItems value="#{fornecedorMB.estados}" var="es" itemLabel="#{es.nome}" itemValue="#{es.id}"/>
+		      				<!-- <f:selectItem itemLabel="SP" itemValue="SP" />
 		      				<f:selectItem itemLabel="RJ" itemValue="RJ" />
 		      				<f:selectItem itemLabel="MG" itemValue="MG" />
-		      				<f:selectItem itemLabel="BA" itemValue="BA"/>
+		      				<f:selectItem itemLabel="BA" itemValue="BA"/> -->
 		      			</p:selectOneMenu>
-					</div> -->
+					</div>
 					<div class="ui-g-2">
 						<p:inputText id="cep" style="width:100%" value="#{fornecedorMB.endereco.cep}"/>
 					</div>

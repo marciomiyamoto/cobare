@@ -125,7 +125,7 @@ public class FornecedorMB {
 			fornecedor = (Fornecedor) rs.getEntidades().get(0);
 			endereco = fornecedor.getEndereco();
 			cidade = fornecedor.getEndereco().getCidade();
-	//		estado = fornecedor.getEndereco().getCidade().getEstado();
+			estado = fornecedor.getEndereco().getCidade().getEstado();
 		}
 	}
 	

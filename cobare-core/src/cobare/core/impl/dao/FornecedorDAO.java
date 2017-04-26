@@ -261,24 +261,24 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 				+ "fo.ID, fo.RAZAO_SOCIAL, fo.CNPJ, fo.NOME_FANTASIA, fo.INSC_ESTADUAL, "
 				+ "en.RUA as logradouro, en.NUM as numero, en.COMPLEMENTO, en.BAIRRO, "
 				+ "ci.NOME as cidade, "
-//				+ "es.nome as UF, "
+				+ "es.nome as UF, "
 				+ "en.CEP, "
 				+ "fo.EMAIL "
 				+ "from fornecedor fo join endereco en on fo.id_endereco = en.id "
 				+ "join cidade ci on en.id_cidade = ci.id "
-//				+ "join estado es on ci.id_estado = es.id "
+				+ "join estado es on ci.id_estado = es.id "
 				+ "where fo.id = " + forn.getId());
 		
 		try {
 			pst = connection.prepareStatement(sql.toString());			
 			ResultSet rs = pst.executeQuery();
 			
-//			Estado estado = new Estado();
+			Estado estado = new Estado();
 			Cidade cidade = new Cidade();
 			Endereco endereco = new Endereco();
 			Fornecedor fornecedor = new Fornecedor();
 			while(rs.next() ) {
-//				estado.setNome(rs.getString("estado"));
+				estado.setNome(rs.getString("UF"));
 				cidade.setNome(rs.getString("cidade"));
 				endereco.setCidade(cidade);
 				endereco.setLogradouro(rs.getString("logradouro"));
