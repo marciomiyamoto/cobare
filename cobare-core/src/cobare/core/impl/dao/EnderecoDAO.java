@@ -34,36 +34,8 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 		}
 		PreparedStatement pst = null;
 		Endereco end = (Endereco) entidade;
-		int idEstado = 0;
 		int idCidade = 0;
 		StringBuilder sql = new StringBuilder();
-		
-//		// SALVANDO ESTADO
-//		sql.append("INSERT INTO Estado ");
-//		sql.append("(nome) ");
-//		sql.append("VALUES(?)");
-//		
-//		try {
-//			connection.setAutoCommit(false);
-//			
-//			pst = connection.prepareStatement(sql.toString(), new String[] {"id"});
-//			pst.setString(1,  end.getCidade().getEstado().getNome());
-//			
-//			pst.executeUpdate();
-//			ResultSet generatedKeys = pst.getGeneratedKeys();
-//			if (null != generatedKeys && generatedKeys.next()) {
-//				idEstado = generatedKeys.getInt(1);
-//			}
-//			
-//			connection.commit();
-//		} catch(SQLException e) {
-//			try {
-//				connection.rollback();
-//			} catch(SQLException e1) {
-//				e1.printStackTrace();
-//			}
-//			e.printStackTrace();
-//		} 
 		
 		// SALVANDO CIDADE
 		sql.setLength(0);
@@ -143,68 +115,8 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 		}
 		PreparedStatement pst = null;
 		Endereco end = (Endereco) entidade;
-//		int idEstado = 0;
-//		int idCidade = 0;
 		StringBuilder sql = new StringBuilder();
 		
-//		sql.append("DELETE ENDERECO WHERE ID = ?")
-		
-		// EXCLUINDO ESTADO
-//		sql.append("INSERT INTO Estado ");
-//		sql.append("(nome) ");
-//		sql.append("VALUES(?)");
-//		
-//		try {
-//			connection.setAutoCommit(false);
-//			
-//			pst = connection.prepareStatement(sql.toString());
-//			pst.setInt(1,  end.getId());
-//			
-//			pst.executeUpdate();
-//			ResultSet generatedKeys = pst.getGeneratedKeys();
-////			if (null != generatedKeys && generatedKeys.next()) {
-////				idEstado = generatedKeys.getInt(1);
-////			}
-//			
-//			connection.commit();
-//		} catch(SQLException e) {
-//			try {
-//				connection.rollback();
-//			} catch(SQLException e1) {
-//				e1.printStackTrace();
-//			}
-//			e.printStackTrace();
-//		} 
-//		
-//		// SALVANDO CIDADE
-//		sql.setLength(0);
-//		sql.append("INSERT INTO Cidade ");
-//		sql.append("(id_estado, nome) ");
-//		sql.append("VALUES(?, ?)");
-//		
-//		try {
-//			connection.setAutoCommit(false);
-//			
-//			pst = connection.prepareStatement(sql.toString(), new String[] {"id"});
-//			pst.setInt(1, idEstado);
-//			pst.setString(2,  end.getCidade().getNome());
-//			
-//			pst.executeUpdate();
-//			ResultSet generatedKeys = pst.getGeneratedKeys();
-//			if (null != generatedKeys && generatedKeys.next()) {
-//			     idCidade = generatedKeys.getInt(1);
-//			}
-//			
-//			connection.commit();
-//		} catch(SQLException e) {
-//			try {
-//				connection.rollback();
-//			} catch(SQLException e1) {
-//				e1.printStackTrace();
-//			}
-//			e.printStackTrace();
-//		} 
-//		
 		// EXCLUINDO ENDERECO
 		sql.setLength(0);
 		sql.append("Delete Endereco ");
@@ -246,27 +158,6 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 		Endereco end = (Endereco) entidade;
 		StringBuilder sql = new StringBuilder();
 		
-		// ATUALIZANDO ESTADO
-		sql.append("UPDATE Estado ");
-		sql.append("SET nome = ? ");
-		sql.append("WHERE id = ?");
-		
-		try {
-			connection.setAutoCommit(false);
-			
-			pst = connection.prepareStatement(sql.toString());
-			pst.setString(1,  end.getCidade().getEstado().getNome());
-			pst.setInt(2, end.getCidade().getEstado().getId());
-			pst.executeUpdate();
-		} catch(SQLException e) {
-			try {
-				connection.rollback();
-			} catch(SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} 
-		
 		// ATUALIZANDO CIDADE
 		sql.setLength(0);
 		sql.append("Select id_cidade from endereco where id = ?");
@@ -279,15 +170,17 @@ public class EnderecoDAO extends AbstractJdbcDAO {
 		}
 		sql.setLength(0);
 		sql.append("UPDATE Cidade ");
-		sql.append("SET nome = ? ");
+		sql.append("SET id_estado = ?, ");
+		sql.append("nome = ? ");
 		sql.append("WHERE id = ?");
 		
 		try {
 			connection.setAutoCommit(false);
 			
 			pst = connection.prepareStatement(sql.toString());
-			pst.setString(1, end.getCidade().getNome());
-			pst.setInt(2, idCidade);
+			pst.setInt(1, end.getCidade().getEstado().getId());
+			pst.setString(2, end.getCidade().getNome());
+			pst.setInt(3, idCidade);
 			pst.executeUpdate();
 		} catch(SQLException e) {
 			try {

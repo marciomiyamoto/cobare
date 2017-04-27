@@ -10,6 +10,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import org.omg.CORBA.CODESET_INCOMPATIBLE;
+
 import cobare.controle.web.command.ICommand;
 import cobare.controle.web.command.impl.AlterarCommand;
 import cobare.controle.web.command.impl.ConsultarCommand;
@@ -17,6 +19,7 @@ import cobare.controle.web.command.impl.ExcluirCommand;
 import cobare.controle.web.command.impl.SalvarCommand;
 import cobare.controle.web.command.impl.VisualizarCommand;
 import cobare.core.aplicacao.Resultado;
+import cobare.core.util.EstadosEnum;
 import cobare.dominio.Cidade;
 import cobare.dominio.Endereco;
 import cobare.dominio.EntidadeDominio;
@@ -68,6 +71,7 @@ public class FornecedorMB {
 	
 	public void limpar() {
 		indexBusca = 0;
+		estado.setId(EstadosEnum.CODE_NULL.getCodigo());
 		cidade = null;
 		endereco = null;
 		fornecedor = null;

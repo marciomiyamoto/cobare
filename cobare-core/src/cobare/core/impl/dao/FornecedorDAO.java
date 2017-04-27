@@ -261,6 +261,7 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 				+ "fo.ID, fo.RAZAO_SOCIAL, fo.CNPJ, fo.NOME_FANTASIA, fo.INSC_ESTADUAL, "
 				+ "en.RUA as logradouro, en.NUM as numero, en.COMPLEMENTO, en.BAIRRO, "
 				+ "ci.NOME as cidade, "
+				+ "es.id as ID_Estado, "
 				+ "es.nome as UF, "
 				+ "en.CEP, "
 				+ "fo.EMAIL "
@@ -278,7 +279,9 @@ public class FornecedorDAO extends AbstractJdbcDAO {
 			Endereco endereco = new Endereco();
 			Fornecedor fornecedor = new Fornecedor();
 			while(rs.next() ) {
+				estado.setId(rs.getInt("ID_Estado"));
 				estado.setNome(rs.getString("UF"));
+				cidade.setEstado(estado);
 				cidade.setNome(rs.getString("cidade"));
 				endereco.setCidade(cidade);
 				endereco.setLogradouro(rs.getString("logradouro"));
