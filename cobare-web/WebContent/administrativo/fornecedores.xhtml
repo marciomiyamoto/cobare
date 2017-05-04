@@ -8,177 +8,196 @@
 	<h:head>
 	</h:head>
 	<h:body>
-		<ui:composition template="/template/template.xhtml">
+	<ui:composition template="/template/template.xhtml">
 		<ui:define name="content">
-		<p:tooltip />
-		<h:form id="form">
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-			<div class="ui-g">
-				<div class="ui-g-9">
-					<p:inputText style="width:100%" value="#{fornecedorMB.indexBusca}"/>
-				</div>
-				<div class="ui-g-1">
-					<p:commandButton value="Buscar" style="width:100%" actionListener="#{fornecedorMB.visualizar}" update="form" />
-				</div>
-			</div>
-			<br/>
-			<fieldset>
-				<legend>
-					<h1>Dados do Fornecedor</h1>
-				</legend>
+			<p:tooltip />
+			<h:form id="form">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
 				<div class="ui-g">
-					<div class="ui-g-1">
-						<p:outputLabel value="Código:"/>
-					</div>
-					<div class="ui-g-6">
-						<p:outputLabel value="*Razão Social / Nome:"/>
-					</div>
-					<div class="ui-g-3">
-						<p:outputLabel value="*CNPJ / CPF:"/>
-					</div>
-				</div>
-				
-				<div class="ui-g">
-					<div class="ui-g-1">
-						<p:inputText id="id" style="width:100%" value="#{fornecedorMB.fornecedor.id}" readonly="true"/>
-					</div>
-					<div class="ui-g-6">
-						<p:inputText id="razaoSocial" style="width:100%" value="#{fornecedorMB.fornecedor.razaoSocial}"/>
-					</div>
-					<div class="ui-g-3">
-						<p:inputText id="cnpj" style="width:100%" value="#{fornecedorMB.fornecedor.cnpj}"/>
-					</div>
-				</div>
-				
-				<div class="ui-g">
-					<div class="ui-g-7">
-						<p:outputLabel value="*Nome fantasia:"/>
-					</div>
-					<div class="ui-g-3">
-						<p:outputLabel value="*Inscrição Estadual:"/>
-					</div>
-				</div>
-				<div class="ui-g">
-					<div class="ui-g-7">
-						<p:inputText id="nomeFantasia" style="width:100%" value="#{fornecedorMB.fornecedor.nomeFantasia}"/>
-					</div>
-					<div class="ui-g-3">
-						<p:inputText id="inscEstadual" style="width:100%" value="#{fornecedorMB.fornecedor.inscEstadual}"/>
-					</div>
-				</div>
-				
-				<div class="ui-g">
-					<div class="ui-g-6">
-						<p:outputLabel value="*Rua / logradouro:"/>
+					<div class="ui-g-9">
+						<p:inputText style="width:100%" value="#{fornecedorMB.indexBusca}" />
 					</div>
 					<div class="ui-g-1">
-						<p:outputLabel value="*Número:"/>
-					</div>
-					<div class="ui-g-3">
-						<p:outputLabel value="Complemento:"/>
+						<p:commandButton value="Buscar" style="width:100%"
+							actionListener="#{fornecedorMB.visualizar}" update="form" />
 					</div>
 				</div>
-				<div class="ui-g">
-					<div class="ui-g-6">
-						<p:inputText id="endereco" style="width:100%" value="#{fornecedorMB.endereco.logradouro}"/>
+				<br />
+				<fieldset>
+					<legend>
+						<h1>Dados do Fornecedor</h1>
+					</legend>
+					<div class="ui-g">
+						<div class="ui-g-1">
+							<p:outputLabel value="Código:" />
+						</div>
+						<div class="ui-g-6">
+							<p:outputLabel value="*Razão Social / Nome:" />
+						</div>
+						<div class="ui-g-3">
+							<p:outputLabel value="*CNPJ / CPF:" />
+						</div>
 					</div>
-					<div class="ui-g-1">
-						<p:inputText id="numero" style="width:100%" value="#{fornecedorMB.endereco.numero}"/>
+
+					<div class="ui-g">
+						<div class="ui-g-1">
+							<p:inputText id="id" style="width:100%"
+								value="#{fornecedorMB.fornecedor.id}" readonly="true" />
+						</div>
+						<div class="ui-g-6">
+							<p:inputText id="razaoSocial" style="width:100%"
+								value="#{fornecedorMB.fornecedor.razaoSocial}" />
+						</div>
+						<div class="ui-g-3">
+							<p:inputText id="cnpj" style="width:100%"
+								value="#{fornecedorMB.fornecedor.cnpj}" />
+						</div>
 					</div>
-					<div class="ui-g-3">
-						<p:inputText id="complemento" style="width:100%" value="#{fornecedorMB.endereco.complemento}"/>
+
+					<div class="ui-g">
+						<div class="ui-g-7">
+							<p:outputLabel value="*Nome fantasia:" />
+						</div>
+						<div class="ui-g-3">
+							<p:outputLabel value="*Inscrição Estadual:" />
+						</div>
 					</div>
-				</div>
-				<div class="ui-g">
-					<div class="ui-g-4">
-						<p:outputLabel value="*Bairro:"/>
+					<div class="ui-g">
+						<div class="ui-g-7">
+							<p:inputText id="nomeFantasia" style="width:100%"
+								value="#{fornecedorMB.fornecedor.nomeFantasia}" />
+						</div>
+						<div class="ui-g-3">
+							<p:inputText id="inscEstadual" style="width:100%"
+								value="#{fornecedorMB.fornecedor.inscEstadual}" />
+						</div>
 					</div>
-					<div class="ui-g-3">
-						<p:outputLabel value="*Cidade:"/>
+
+					<div class="ui-g">
+						<div class="ui-g-6">
+							<p:outputLabel value="*Rua / logradouro:" />
+						</div>
+						<div class="ui-g-1">
+							<p:outputLabel value="*Número:" />
+						</div>
+						<div class="ui-g-3">
+							<p:outputLabel value="Complemento:" />
+						</div>
 					</div>
-					<div class="ui-g-1">
-						<p:outputLabel value="*UF:"/>
+					<div class="ui-g">
+						<div class="ui-g-6">
+							<p:inputText id="endereco" style="width:100%"
+								value="#{fornecedorMB.endereco.logradouro}" />
+						</div>
+						<div class="ui-g-1">
+							<p:inputText id="numero" style="width:100%"
+								value="#{fornecedorMB.endereco.numero}" />
+						</div>
+						<div class="ui-g-3">
+							<p:inputText id="complemento" style="width:100%"
+								value="#{fornecedorMB.endereco.complemento}" />
+						</div>
 					</div>
-					<div class="ui-g-2">
-						<p:outputLabel value="*CEP:"/>
+					<div class="ui-g">
+						<div class="ui-g-4">
+							<p:outputLabel value="*Bairro:" />
+						</div>
+						<div class="ui-g-3">
+							<p:outputLabel value="*Cidade:" />
+						</div>
+						<div class="ui-g-1">
+							<p:outputLabel value="*UF:" />
+						</div>
+						<div class="ui-g-2">
+							<p:outputLabel value="*CEP:" />
+						</div>
 					</div>
-				</div>
-				<div class="ui-g">
-					<div class="ui-g-4">
-						<p:inputText id="bairro" style="width:100%" value="#{fornecedorMB.endereco.bairro}"/>
+					<div class="ui-g">
+						<div class="ui-g-4">
+							<p:inputText id="bairro" style="width:100%"
+								value="#{fornecedorMB.endereco.bairro}" />
+						</div>
+						<div class="ui-g-3">
+							<p:inputText id="cidade" style="width:100%"
+								value="#{fornecedorMB.cidade.nome}" />
+						</div>
+						<!-- <div class="ui-g-1">
+								<p:inputText id="uf" style="width:100%" value="#{fornecedorMB.estado.nome}"/>
+							</div> -->
+						<div class="ui-g-1">
+							<p:selectOneMenu value="#{fornecedorMB.estado.id}">
+								<f:selectItems value="#{fornecedorMB.estados}" var="es"
+									itemLabel="#{es.nome}" itemValue="#{es.id}" />
+								<!-- <f:selectItem itemLabel="SP" itemValue="SP" />
+				      				<f:selectItem itemLabel="RJ" itemValue="RJ" />
+				      				<f:selectItem itemLabel="MG" itemValue="MG" />
+				      				<f:selectItem itemLabel="BA" itemValue="BA"/> -->
+							</p:selectOneMenu>
+						</div>
+						<div class="ui-g-2">
+							<p:inputText id="cep" style="width:100%"
+								value="#{fornecedorMB.endereco.cep}" />
+						</div>
 					</div>
-					<div class="ui-g-3">
-						<p:inputText id="cidade" style="width:100%" value="#{fornecedorMB.cidade.nome}"/>
+
+					<div class="ui-g">
+						<div class="ui-g-2">
+							<p:outputLabel value="Telefone 1:" />
+						</div>
+						<div class="ui-g-2">
+							<p:outputLabel value="Telefone 2:" />
+						</div>
+						<div class="ui-g-1"></div>
+						<div class="ui-g-2">
+							<p:outputLabel value="Celular:" />
+						</div>
+						<div class="ui-g-1"></div>
+						<div class="ui-g-2">
+							<p:outputLabel value="Fax:" />
+						</div>
 					</div>
-					<!-- <div class="ui-g-1">
-						<p:inputText id="uf" style="width:100%" value="#{fornecedorMB.estado.nome}"/>
-					</div> -->
-					<div class="ui-g-1">
-						<p:selectOneMenu value="#{fornecedorMB.estado.id}">
-							<f:selectItems value="#{fornecedorMB.estados}" var="es" itemLabel="#{es.nome}" itemValue="#{es.id}"/>
-		      				<!-- <f:selectItem itemLabel="SP" itemValue="SP" />
-		      				<f:selectItem itemLabel="RJ" itemValue="RJ" />
-		      				<f:selectItem itemLabel="MG" itemValue="MG" />
-		      				<f:selectItem itemLabel="BA" itemValue="BA"/> -->
-		      			</p:selectOneMenu>
+					<div class="ui-g">
+						<div class="ui-g-2">
+							<p:inputText id="telefone1" style="width:100%" />
+						</div>
+						<div class="ui-g-2">
+							<p:inputText style="width:100%" />
+						</div>
+						<div class="ui-g-1"></div>
+						<div class="ui-g-2">
+							<p:inputText style="width:100%" />
+						</div>
+						<div class="ui-g-1"></div>
+						<div class="ui-g-2">
+							<p:inputText style="width:100%" />
+						</div>
 					</div>
-					<div class="ui-g-2">
-						<p:inputText id="cep" style="width:100%" value="#{fornecedorMB.endereco.cep}"/>
+
+					<div class="ui-g">
+						<div class="ui-g-10">
+							<p:outputLabel value="Email:" />
+						</div>
 					</div>
-				</div>
-				
-				<div class="ui-g">
-					<div class="ui-g-2">
-						<p:outputLabel value="Telefone 1:"/>
+					<div class="ui-g">
+						<div class="ui-g-10">
+							<p:inputText id="email" style="width:100%"
+								value="#{fornecedorMB.fornecedor.email}" />
+						</div>
 					</div>
-					<div class="ui-g-2">
-						<p:outputLabel value="Telefone 2:"/>
-					</div>
-					<div class="ui-g-1"></div>
-					<div class="ui-g-2">
-						<p:outputLabel value="Celular:"/>
-					</div>
-					<div class="ui-g-1"></div>
-					<div class="ui-g-2">
-						<p:outputLabel value="Fax:"/>
-					</div>
-				</div>
-				<div class="ui-g">
-					<div class="ui-g-2">
-						<p:inputText id="telefone1" style="width:100%" />
-					</div>
-					<div class="ui-g-2">
-						<p:inputText style="width:100%"/>
-					</div>
-					<div class="ui-g-1"></div>
-					<div class="ui-g-2">
-						<p:inputText style="width:100%"/>
-					</div>
-					<div class="ui-g-1"></div>
-					<div class="ui-g-2">
-						<p:inputText style="width:100%"/>
-					</div>
-				</div>
-				
-				<div class="ui-g">
-					<div class="ui-g-10">
-						<p:outputLabel value="Email:"/>
-					</div>
-				</div>
-				<div class="ui-g">
-					<div class="ui-g-10">
-						<p:inputText id="email" style="width:100%" value="#{fornecedorMB.fornecedor.email}"/>
-					</div>
-				</div>
-			</fieldset>
-			<br/>
-			<p:commandButton value="Salvar" actionListener="#{fornecedorMB.salvar}"/>
-			<p:commandButton value="Atualizar" actionListener="#{fornecedorMB.atualizar}"/>
-			<p:commandButton value="Limpar" actionListener="#{fornecedorMB.limpar}" update="@all"/>
-			<p:commandButton value="Excluir" actionListener="#{fornecedorMB.excluir}" update="@all"/>
-			<p:commandButton value="Cancelar"/>
-		</h:form>
+				</fieldset>
+				<br />
+				<p:commandButton value="Salvar"
+					actionListener="#{fornecedorMB.salvar}" />
+				<p:commandButton value="Atualizar"
+					actionListener="#{fornecedorMB.atualizar}" />
+				<p:commandButton value="Limpar"
+					actionListener="#{fornecedorMB.limpar}" update="@all" />
+				<p:commandButton value="Excluir"
+					actionListener="#{fornecedorMB.excluir}" update="@all" />
+				<p:commandButton value="Cancelar" />
+			</h:form>
 		</ui:define>
-		</ui:composition>		
-	</h:body>
+	</ui:composition>
+</h:body>
 </html>

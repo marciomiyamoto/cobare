@@ -10,12 +10,16 @@ import cobare.core.IDAO;
 import cobare.core.IFachada;
 import cobare.core.IStrategy;
 import cobare.core.aplicacao.Resultado;
+import cobare.core.impl.dao.CategoriaProdutoDAO;
 import cobare.core.impl.dao.EstadoDAO;
 import cobare.core.impl.dao.FornecedorDAO;
+import cobare.core.impl.dao.UnidadeMedidaDAO;
 import cobare.core.impl.negocio.ValidarDadosObrigatoriosFornecedor;
+import cobare.dominio.CategoriaProduto;
 import cobare.dominio.EntidadeDominio;
 import cobare.dominio.Estado;
 import cobare.dominio.Fornecedor;
+import cobare.dominio.UnidadeMedida;
 
 public class Fachada implements IFachada {
 
@@ -43,12 +47,16 @@ public class Fachada implements IFachada {
 		/* Criando instâncias dos DAOs a serem utilizados*/
 		FornecedorDAO forDAO = new FornecedorDAO();
 		EstadoDAO estDAO = new EstadoDAO();
+		UnidadeMedidaDAO unDAO = new UnidadeMedidaDAO();
+		CategoriaProdutoDAO catProdDAO = new CategoriaProdutoDAO();
 //		ClienteDAO cliDAO = new ClienteDAO();
 //		ProdutoDAO proDAO = new ProdutoDAO();
 		
 		/* Adicionando cada dao no MAP indexando pelo nome da classe */
 		daos.put(Fornecedor.class.getName(), forDAO);
 		daos.put(Estado.class.getName(), estDAO);
+		daos.put(UnidadeMedida.class.getName(), unDAO);
+		daos.put(CategoriaProduto.class.getName(), catProdDAO);
 //		daos.put(Cliente.class.getName(), cliDAO);		
 //		daos.put(Produto.class.getName(), proDAO);
 		

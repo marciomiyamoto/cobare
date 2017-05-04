@@ -5,93 +5,210 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<h:body>
+<h:body>
+	<h:form>
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<p:outputLabel value="Doc nº: " />
+				<p:inputText disabled="true" />
+			</div>
+			<div class="ui-g-4">
+				<p:outputLabel value="Descrição: " />
+				<p:inputText />
+			</div>
+			<div class="ui-g-4">
+				<p:outputLabel value="Tipo " />
+				<p:selectOneMenu>
+					<f:selectItem itemLabel="À pagar" itemValue="À pagar" />
+					<f:selectItem itemLabel="À receber" itemValue="À receber" />
+				</p:selectOneMenu>
+			</div>
+		</div>
+		<div class="ui-g">
+			<div class="ui-g-8">
+				<p:outputLabel value="Cliente / Fornecedor: " />
+				<p:selectOneMenu>
+					<f:selectItem itemLabel="Ambev" itemValue="Ambev" />
+					<f:selectItem itemLabel="Pepsico" itemValue="Pepsico" />
+				</p:selectOneMenu>
+			</div>
+			<div class="ui-g-4">
+				<p:outputLabel value="Emissão: " />
+				<p:calendar />
+			</div>
+		</div>
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<p:outputLabel value="Parcelas: " />
+				<p:inputText />
+			</div>
+			<div class="ui-g-4">
+				<p:outputLabel value="Valor: " />
+				<p:inputText />
+			</div>
+			<div class="ui-g-4">
+				<p:outputLabel value="Vencimento: " />
+				<p:calendar />
+			</div>
+		</div>
+		<br />
+		<br />
+		<p:commandButton value="Adicionar produto"
+			onclick="PF('dialogNovoProduto').show()" />
+		<p:commandButton value="Editar produto" disabled="true" />
+		<p:commandButton value="Excluir produto" disabled="true" />
+		<br />
+		<br />
+		<p:dataTable value="#{contasMB.contas}">
+			<p:column headerText="Código">
+				<h:outputText value="#{codigo}" />
+			</p:column>
+			<p:column headerText="Produto">
+				<h:outputText value="#{produto}" />
+			</p:column>
+			<p:column headerText="Categoria">
+				<h:outputText value="#{categoria}" />
+			</p:column>
+			<p:column headerText="Custo (un)">
+				<h:outputText value="#{custoUn}" />
+			</p:column>
+			<p:column headerText="Qtde">
+				<h:outputText value="#{qtde}" />
+			</p:column>
+			<p:column headerText="Custo (total)">
+				<h:outputText value="#{custoTotal}" />
+			</p:column>
+			<p:column headerText="Un. Medida">
+				<h:outputText value="#{unMedida}" />
+			</p:column>
+			<p:column headerText="Data de validade">
+				<h:outputText value="#{dtValidade}" />
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
+		<p:commandButton value="Salvar" />
+		<p:commandButton value="Cancelar" />
+	</h:form>
+
+	<p:dialog widgetVar="dialogNovoProduto" modal="true" 
+		width="1300" appendTo="@(body)">
 		<h:form>
 			<div class="ui-g">
-				<div class="ui-g-4">
-					<p:outputLabel value="Doc nº: "/>
-					<p:inputText disabled="true"/>
+				<div class="ui-g-3">
+					<p:outputLabel value="Nome do produto: " />
 				</div>
-				<div class="ui-g-4">
-					<p:outputLabel value="Descrição: "/>
-					<p:inputText/>
-				</div>
-				<div class="ui-g-4">
-					<p:outputLabel value="Tipo "/>
-					<p:selectOneMenu>
-	      				<f:selectItem itemLabel="À pagar" itemValue="À pagar" />
-	      				<f:selectItem itemLabel="À receber" itemValue="À receber" />
-	      			</p:selectOneMenu>
+				<div class="ui-g-3">
+					<p:outputLabel value="Categoria: " />
 				</div>
 			</div>
 			<div class="ui-g">
-				<div class="ui-g-8">
-					<p:outputLabel value="Cliente / Fornecedor: "/>
-					<p:selectOneMenu>
-	      				<f:selectItem itemLabel="Ambev" itemValue="Ambev" />
-	      				<f:selectItem itemLabel="Pepsico" itemValue="Pepsico" />
-	      			</p:selectOneMenu>
+				<div class="ui-g-3">
+					<p:inputText style="width:100%" />
 				</div>
-				<div class="ui-g-4">
-					<p:outputLabel value="Emissão: "/>
-					<p:calendar/>
-				</div>					
+				<div class="ui-g-3">
+					<p:selectOneMenu value="#{contasMB.catProduto.id}">
+						<f:selectItems value="#{contasMB.catProdutos}" var="cat"
+							itemLabel="#{cat.nome}" itemValue="#{cat.id}"/>
+						<!-- <f:selectItem itemLabel="Insumos" itemValue="Insumos" />
+						<f:selectItem itemLabel="Porções" itemValue="Porções" />
+						<f:selectItem itemLabel="Drinks" itemValue="Drinks" />
+						<f:selectItem itemLabel="Refrigerantes" itemValue="Refrigerantes" /> -->
+					</p:selectOneMenu>
+				</div>
+				<div class="ui-g-1">
+					<p:commandButton value="+" />
+				</div>
 			</div>
 			<div class="ui-g">
-				<div class="ui-g-4">
-					<p:outputLabel value="Parcelas: "/>
-					<p:inputText/>
+				<div class="ui-g-3">
+					<p:outputLabel value="Quantidade: " />
 				</div>
-				<div class="ui-g-4">
-					<p:outputLabel value="Valor: "/>
-					<p:inputText/>
+				<div class="ui-g-3">
+					<p:outputLabel value="Custo unitário: " />
 				</div>
-				<div class="ui-g-4">
-					<p:outputLabel value="Vencimento: "/>
-					<p:calendar/>
-				</div>		
 			</div>
-			<br/>
-			<br/>
-			<p:commandButton value="Adicionar produto" oncomplete="PF('dialogNovoProduto').show()"/>
-			<p:commandButton value="Editar produto" disabled="true"/>
-			<p:commandButton value="Excluir produto" disabled="true"/>
-			<br/>
-			<br/>
-			<p:dataTable value="#{contasMB.contas}">
-	     		<p:column headerText="Código" >
-					<h:outputText value="#{codigo}" />
-				</p:column>
-				<p:column headerText="Produto">
-					<h:outputText value="#{produto}" />
-				</p:column>
-				<p:column headerText="Categoria">
-					<h:outputText value="#{categoria}" />
-				</p:column>
-				<p:column headerText="Custo (un)">
-					<h:outputText value="#{custoUn}" />
-				</p:column>
-				<p:column headerText="Qtde">
-					<h:outputText value="#{qtde}" />
-				</p:column>
-				<p:column headerText="Custo (total)">
-					<h:outputText value="#{custoTotal}" />
-				</p:column>
-				<p:column headerText="Un. Medida">
-					<h:outputText value="#{unMedida}" />
-				</p:column>
-				<p:column headerText="Data de validade">
-					<h:outputText value="#{dtValidade}" />
-				</p:column>
-	     	</p:dataTable>
-	     	<br/>
-			<br/>
-			<p:commandButton value="Salvar"/>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:inputText style="width:100%" />
+				</div>
+				<div class="ui-g-3">
+					<p:inputText style="width:100%" disabled="true" />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-2">
+					<p:outputLabel value="Valor de venda (unitário): " />
+				</div>
+				<div class="ui-g-2">
+					<p:outputLabel value="Data de validade: " />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:inputText style="width:100%" />
+				</div>
+				<div class="ui-g-3">
+					<p:calendar style="width:100%" />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:outputLabel value="Unidade de medida: " />
+				</div>
+				<div class="ui-g-2">
+					<p:outputLabel value="É produto composto? " />
+				</div>
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-2">
+					<p:selectOneMenu value="#{contasMB.unMedida.id}">
+						<f:selectItems value="#{contasMB.unMedidas}" var="un"
+							itemLabel="#{un.unidade}" itemValue="#{un.id}"/>
+					</p:selectOneMenu>
+				</div>
+				<div class="ui-g-1">
+					<p:commandButton value="+" />
+				</div>
+				<div class="ui-g-2">
+					<p:selectOneRadio value="#{contasMB.flagProdutoComposto}">
+						<f:selectItem itemLabel="Sim" itemValue="true" />
+						<f:selectItem itemLabel="Não" itemValue="false" />
+						<p:ajax update="panel" />
+					</p:selectOneRadio>
+				</div>
+			</div>
+			<p:panel id="panel" visible="#{contasMB.flagProdutoComposto}"
+				toggleable="true">
+				<fieldset>
+					<legend>Produto composto</legend>
+					<div>
+						<p:selectOneMenu>
+							<f:selectItem itemLabel="Farinha de trigo" itemValue="farinha" />
+							<f:selectItem itemLabel="Ovo" itemValue="ovo" />
+							<f:selectItem itemLabel="Leite" itemValue="leite" />
+							<f:selectItem itemLabel="Acúcar" itemValue="acucar" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Qtde: " />
+						<p:inputText />
+						<p:commandButton value="Adicionar" />
+					</div>
+					<p:dataTable value="#{contasMB.insumos}">
+						<p:column headerText="Produto">
+							<h:outputText value="#{produto}" />
+						</p:column>
+						<p:column headerText="Qtde">
+							<h:outputText value="#{qtde}" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="remover" />
+						</p:column>
+					</p:dataTable>
+				</fieldset>
+			</p:panel>
+			<p:commandButton value="Adicionar" />
 			<p:commandButton value="Cancelar" />
 		</h:form>
-		
-		<p:dialog widgetVar="dialogNovoProduto" responsive="true" modal="false" width="1300">
-		        <ui:include src="dialogNovoProduto.xhtml" />
-		</p:dialog>
-	</h:body>
+	</p:dialog>
+</h:body>
 </html>

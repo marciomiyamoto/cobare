@@ -3,152 +3,165 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
       <h:head>
       </h:head>
       <h:body>
-      	<h:form id="formMesa">
-      		<p:dataGrid value="#{mesasMB.mesas}" columns="8" layout="grid"
-      			rows="6" paginator="true" 
-      			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-        		rowsPerPageTemplate="16, 32, 64">
-        		<f:facet name="header">Painel de mesas</f:facet>
-      			<p:panel style="text-align:center">
-      				<h:panelGrid columns="1" style="width:100%">
-      					<p:commandButton value="#{mesasMB.mesa}" oncomplete="PF('dialogMesa').show()" style="witdh:50px; height:50px;"/>
-      				</h:panelGrid>
-      			</p:panel>
-      		</p:dataGrid>
-      	</h:form>
-      	
-      	<p:dialog header="Mesa" widgetVar="dialogMesa" resizable="false" modal="true" width="800">
-	      	<h:form>
-	      		<p:dataTable value="#{mesasMB.pedidos}">
-	      			<p:column headerText="Pedido">
-						<h:outputText value="#{pedido}" />
-					</p:column>
-					<p:column headerText="Qtde">
-						<h:outputText value="#{qtde}" />
-					</p:column>
-					<p:column headerText="Valor">
-						<h:outputText value="#{valor}" />
-					</p:column>
-					<p:column headerText="Atendente">
-						<h:outputText value="#{atendente}" />
-					</p:column>
-					<p:column >
-						<p:commandButton value="Cancelar" />
-					</p:column>
-	      		</p:dataTable>
-	      		<br/>
-	      		<p:commandButton value="Adicionar pedido" oncomplete="PF('dialogAddPedido').show()"/>
-	      		<p:commandButton value="Fechar conta" oncomplete="PF('dialogFecharMesa').show()"/>
-	      		<br/>
-	      		<br/>
-	      		<p:outputLabel>Total: </p:outputLabel>
-	      	</h:form>
-      	</p:dialog>
-      	
-      	<p:dialog header="Adicionar pedido" widgetVar="dialogAddPedido" resizable="false" modal="true" width="400">
-      		<h:form>
-      			<p:outputLabel value="Categoria:"/>
-      			<div />
-      			<p:selectOneMenu>
-      				<f:selectItem itemLabel="Cervejas" itemValue="Cervejas" />
-      				<f:selectItem itemLabel="Porções" itemValue="Porções" />
-      				<f:selectItem itemLabel="Drinks" itemValue="Drinks" />
-      				<f:selectItem itemLabel="Refrigerantes" itemValue="Refrigerantes"/>
-      			</p:selectOneMenu>
-      			<br/>
-	      		<br/>
-      			<p:outputLabel value="Pedido:"/>
-      			<div />
-      			<p:selectOneMenu>
-      				<f:selectItem itemLabel="Bohemia" itemValue="Bohemia"  />
-      				<f:selectItem itemLabel="Original" itemValue="Original" />
-      				<f:selectItem itemLabel="Skol" itemValue="Skol" />
-      				<f:selectItem itemLabel="Brahma" itemValue="Brahma" />
-      			</p:selectOneMenu>
-      			<br/>
-	      		<br/>
-      			<p:outputLabel value="Quantidade:"/>
-      			<div />
-      			<p:selectOneMenu>
-      				<f:selectItem itemLabel="1" itemValue="1"/>
-      				<f:selectItem itemLabel="2" itemValue="2"/>
-      				<f:selectItem itemLabel="3" itemValue="3"/>
-      				<f:selectItem itemLabel="4" itemValue="4"/>
-      			</p:selectOneMenu>
-      			<br/>
-	      		<br/>
-      			<p:outputLabel value="Atendente:"/>
-      			<div />
-      			<p:selectOneMenu>
-      				<f:selectItem itemLabel="Carlos" itemValue="Carlos"/>
-      				<f:selectItem itemLabel="Leandro" itemValue="Leandro"/>
-      				<f:selectItem itemLabel="José" itemValue="José"/>
-      			</p:selectOneMenu>
-      			<br/>
-	      		<br/>
-	      		<p:commandButton value="Adicionar"/>
-	      		<p:commandButton value="Cancelar" oncomplete="PF('dialogAddPedido').hide()"/>
-      		</h:form>
-      	</p:dialog>
-      	
-      	<p:dialog header="Fechar mesa" widgetVar="dialogFecharMesa" resizable="false" modal="true" width="800">
-	      	<h:form>
-	      		<p:dataTable value="#{mesasMB.pedidos}">
-	      			<p:column headerText="Pedido">
-						<h:outputText value="#{pedidos}" />
-					</p:column>
-					<p:column headerText="Qtde">
-						<h:outputText value="#{qtde}" />
-					</p:column>
-					<p:column headerText="Valor">
-						<h:outputText value="#{valor}" />
-					</p:column>
-					<p:column headerText="Atendente">
-						<h:outputText value="#{atendente}" />
-					</p:column>
-					<p:column >
-						<p:commandButton value="Cancelar" />
-					</p:column>
-	      		</p:dataTable>
-	      		<br/>
-	      		<br/>
-	      		<p:outputLabel>Total: </p:outputLabel>
-	      		<br/>
-	      		<br/>
-	      		<p:outputLabel value="Dinheiro: "/>
-	      		<p:inputText />
-	      		<br/>
-	      		<br/>
-	      		<fieldset>
-	      			<legend>Cartão</legend> 
-	      			<p:selectOneRadio>
-	      				<f:selectItem itemLabel="Débito" itemValue="Débito"/>
-	      				<f:selectItem itemLabel="Crédito" itemValue="Crédito"/>
-	      			</p:selectOneRadio>
-	      			<p:outputLabel value="Bandeira: "/>
-	      			<p:selectOneMenu>
-	      				<f:selectItem itemLabel="Visa" itemValue="Visa" />
-	      				<f:selectItem itemLabel="Mastercard" itemValue="Mastercard"/>
-	      				<f:selectItem itemLabel="Amex" itemValue="JoAmexsé" />
-      				</p:selectOneMenu>
-	      			<div />
-	      			<p:outputLabel value="Valor: "/>
-	      			<p:inputText/>
-	      		</fieldset>
-	      		<br/>
-	      		<br/>
-	      		<p:outputLabel value="Troco: "/>
-	      		<p:inputText disabled="true"/>
-	      		<br/>
-	      		<br/>
-	      		<p:commandButton value="Finalizar pagamento"/>
-	      		<p:commandButton value="Cancelar" oncomplete="PF('dialogFecharMesa').hide();PF('dialogMesa').hide()"/>
-	      	</h:form>
-      	</p:dialog>
-      </h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+			<h:form id="formMesa">
+				<p:dataGrid value="#{mesasMB.mesas}" columns="8" layout="grid"
+					rows="6" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="16, 32, 64">
+					<f:facet name="header">Painel de mesas</f:facet>
+					<p:panel style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<p:commandButton value="#{mesasMB.mesa}"
+								oncomplete="PF('dialogMesa').show()"
+								style="witdh:50px; height:50px;" />
+						</h:panelGrid>
+					</p:panel>
+				</p:dataGrid>
+			</h:form>
+
+			<p:dialog header="Mesa" widgetVar="dialogMesa" resizable="false"
+				modal="true" width="800">
+				<h:form>
+					<p:dataTable value="#{mesasMB.pedidos}">
+						<p:column headerText="Pedido">
+							<h:outputText value="#{pedido}" />
+						</p:column>
+						<p:column headerText="Qtde">
+							<h:outputText value="#{qtde}" />
+						</p:column>
+						<p:column headerText="Valor">
+							<h:outputText value="#{valor}" />
+						</p:column>
+						<p:column headerText="Atendente">
+							<h:outputText value="#{atendente}" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Cancelar" />
+						</p:column>
+					</p:dataTable>
+					<br />
+					<p:commandButton value="Adicionar pedido"
+						oncomplete="PF('dialogAddPedido').show()" />
+					<p:commandButton value="Fechar conta"
+						oncomplete="PF('dialogFecharMesa').show()" />
+					<br />
+					<br />
+					<p:outputLabel>Total: </p:outputLabel>
+				</h:form>
+			</p:dialog>
+
+			<p:dialog header="Adicionar pedido" widgetVar="dialogAddPedido"
+				resizable="false" modal="true" width="400">
+				<h:form>
+					<p:outputLabel value="Categoria:" />
+					<div />
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="Cervejas" itemValue="Cervejas" />
+						<f:selectItem itemLabel="Porções" itemValue="Porções" />
+						<f:selectItem itemLabel="Drinks" itemValue="Drinks" />
+						<f:selectItem itemLabel="Refrigerantes" itemValue="Refrigerantes" />
+					</p:selectOneMenu>
+					<br />
+					<br />
+					<p:outputLabel value="Pedido:" />
+					<div />
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="Bohemia" itemValue="Bohemia" />
+						<f:selectItem itemLabel="Original" itemValue="Original" />
+						<f:selectItem itemLabel="Skol" itemValue="Skol" />
+						<f:selectItem itemLabel="Brahma" itemValue="Brahma" />
+					</p:selectOneMenu>
+					<br />
+					<br />
+					<p:outputLabel value="Quantidade:" />
+					<div />
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="1" itemValue="1" />
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+					</p:selectOneMenu>
+					<br />
+					<br />
+					<p:outputLabel value="Atendente:" />
+					<div />
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="Carlos" itemValue="Carlos" />
+						<f:selectItem itemLabel="Leandro" itemValue="Leandro" />
+						<f:selectItem itemLabel="José" itemValue="José" />
+					</p:selectOneMenu>
+					<br />
+					<br />
+					<p:commandButton value="Adicionar" />
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dialogAddPedido').hide()" />
+				</h:form>
+			</p:dialog>
+
+			<p:dialog header="Fechar mesa" widgetVar="dialogFecharMesa"
+				resizable="false" modal="true" width="800">
+				<h:form>
+					<p:dataTable value="#{mesasMB.pedidos}">
+						<p:column headerText="Pedido">
+							<h:outputText value="#{pedidos}" />
+						</p:column>
+						<p:column headerText="Qtde">
+							<h:outputText value="#{qtde}" />
+						</p:column>
+						<p:column headerText="Valor">
+							<h:outputText value="#{valor}" />
+						</p:column>
+						<p:column headerText="Atendente">
+							<h:outputText value="#{atendente}" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Cancelar" />
+						</p:column>
+					</p:dataTable>
+					<br />
+					<br />
+					<p:outputLabel>Total: </p:outputLabel>
+					<br />
+					<br />
+					<p:outputLabel value="Dinheiro: " />
+					<p:inputText />
+					<br />
+					<br />
+					<fieldset>
+						<legend>Cartão</legend>
+						<p:selectOneRadio>
+							<f:selectItem itemLabel="Débito" itemValue="Débito" />
+							<f:selectItem itemLabel="Crédito" itemValue="Crédito" />
+						</p:selectOneRadio>
+						<p:outputLabel value="Bandeira: " />
+						<p:selectOneMenu>
+							<f:selectItem itemLabel="Visa" itemValue="Visa" />
+							<f:selectItem itemLabel="Mastercard" itemValue="Mastercard" />
+							<f:selectItem itemLabel="Amex" itemValue="JoAmexsé" />
+						</p:selectOneMenu>
+						<div />
+						<p:outputLabel value="Valor: " />
+						<p:inputText />
+					</fieldset>
+					<br />
+					<br />
+					<p:outputLabel value="Troco: " />
+					<p:inputText disabled="true" />
+					<br />
+					<br />
+					<p:commandButton value="Finalizar pagamento" />
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dialogFecharMesa').hide();PF('dialogMesa').hide()" />
+				</h:form>
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>

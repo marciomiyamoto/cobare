@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
-public class mesasMB {	
+public class MesasMB {	
 	
 	private String mesa;
 	private String pedido;

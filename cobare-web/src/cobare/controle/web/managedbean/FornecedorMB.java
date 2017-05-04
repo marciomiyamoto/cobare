@@ -57,6 +57,10 @@ public class FornecedorMB {
 		commands.put("VISUALIZAR", new VisualizarCommand());
 		commands.put("ALTERAR", new AlterarCommand());
 		
+		popularEstados();
+	}
+
+	private void popularEstados() {
 		command = commands.get("CONSULTAR");
 		Resultado rs = command.execute(estado);
 		

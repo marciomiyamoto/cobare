@@ -10,7 +10,22 @@
 <h:body>
 	<ui:composition>
 		<h1>COBARE</h1>
-		<p:tabMenu activeIndex="#{param.i}">
+		<p:menubar>
+			<p:submenu label="Operacional">
+				<p:menuitem value="Mesas" url="/operacional/mesas.xhtml" />
+				<p:menuitem value="Cozinha" url="/operacional/cozinha.xhtml" />
+				<p:menuitem value="Bar" url="/operacional/bar.xhtml" />
+			</p:submenu>
+			<p:submenu label="Administrativo">
+				<p:menuitem value="Estoque" url="/administrativo/estoque.xhtml" />
+				<p:menuitem value="Fornecedores" url="/administrativo/fornecedores.xhtml" />
+				<p:menuitem value="Contas" url="/administrativo/contas.xhtml" />
+			</p:submenu>
+			<p:submenu label="Estratégico">
+				<p:menuitem value="Produto-período" url="/estrategico/produto-periodo.xhtml" />
+			</p:submenu>
+		</p:menubar>
+		<!-- <p:tabMenu activeIndex="#{param.i}">
 			<p:menuitem value="Operacional" outcome="/operacional/mesas.xhtml">
 				<f:param name="i" value="0"/>
 			</p:menuitem>
@@ -20,7 +35,7 @@
 			<p:menuitem value="Operacional" outcome="/estrategico/produto-periodo.xhtml">
 				<f:param name="i" value="2"/>
 			</p:menuitem>
-		</p:tabMenu>
+		</p:tabMenu> -->
 	</ui:composition>
 </h:body>
 </html>

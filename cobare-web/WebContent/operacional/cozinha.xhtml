@@ -3,32 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
  	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head>
 	</h:head>
 	<h:body>
-		<p:dataTable value="cozinhaMB.pedidos}">
-     		<p:column headerText="Mesa">
-				<h:outputText value="#{mesa}" />
-			</p:column>
-     		<p:column headerText="Pedido">
-				<h:outputText value="#{pedidos}" />
-			</p:column>
-			<p:column headerText="Qtde">
-				<h:outputText value="#{qtde}" />
-			</p:column>
-			<p:column headerText="Valor">
-				<h:outputText value="#{valor}" />
-			</p:column>
-			<p:column headerText="Atendente">
-				<h:outputText value="#{atendente}" />
-			</p:column>
-			<p:column headerText="Hora">
-				<h:outputText value="#{hora}" />
-			</p:column>
-			<p:column headerText="Status">
-				<h:outputText value="#{status}" />
-			</p:column>
-     	</p:dataTable>
-	</h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+			<p:dataTable value="cozinhaMB.pedidos}">
+				<p:column headerText="Mesa">
+					<h:outputText value="#{mesa}" />
+				</p:column>
+				<p:column headerText="Pedido">
+					<h:outputText value="#{pedidos}" />
+				</p:column>
+				<p:column headerText="Qtde">
+					<h:outputText value="#{qtde}" />
+				</p:column>
+				<p:column headerText="Valor">
+					<h:outputText value="#{valor}" />
+				</p:column>
+				<p:column headerText="Atendente">
+					<h:outputText value="#{atendente}" />
+				</p:column>
+				<p:column headerText="Hora">
+					<h:outputText value="#{hora}" />
+				</p:column>
+				<p:column headerText="Status">
+					<h:outputText value="#{status}" />
+				</p:column>
+			</p:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>

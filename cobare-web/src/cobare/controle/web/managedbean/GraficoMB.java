@@ -11,7 +11,7 @@ import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
 @ManagedBean
-public class graficoMB {
+public class GraficoMB {
 	 private LineChartModel lineModel1;
 	    private LineChartModel lineModel2;
 	     

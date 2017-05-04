@@ -3,7 +3,7 @@ package cobare.controle.web.managedbean;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
-public class estoqueMB {
+public class EstoqueMB {
 	
 	private String[] produtos = {"1","2","3","4"};
 
