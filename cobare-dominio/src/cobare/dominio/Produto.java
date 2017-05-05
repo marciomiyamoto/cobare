@@ -7,12 +7,13 @@ public class Produto extends EntidadeDominio {
 	
 	private UnidadeMedida unidadeMedida;
 	private CategoriaProduto categoria;
-	private List <Produto> produtoComposto;
+	private boolean produtoComposto;
 	private String nome;
 	private double qtde;
 	private double custoUnitario;
 	private double valorVenda;
 	private Date dataValidade;
+	private List <Produto> insumos;
 	
 	public UnidadeMedida getUnidadeMedida() {
 		return unidadeMedida;
@@ -26,10 +27,10 @@ public class Produto extends EntidadeDominio {
 	public void setCategoria(CategoriaProduto categoria) {
 		this.categoria = categoria;
 	}
-	public List<Produto> getProdutoComposto() {
+	public boolean getProdutoComposto() {
 		return produtoComposto;
 	}
-	public void setProdutoComposto(List<Produto> produtoComposto) {
+	public void setProdutoComposto(boolean produtoComposto) {
 		this.produtoComposto = produtoComposto;
 	}
 	public String getNome() {
@@ -62,5 +63,10 @@ public class Produto extends EntidadeDominio {
 	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
 	}
-	
+	public List<Produto> getInsumos() {
+		return insumos;
+	}
+	public void setInsumos(List<Produto> insumos) {
+		this.insumos = insumos;
+	}
 }

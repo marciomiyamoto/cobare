@@ -54,6 +54,8 @@
 		<br />
 		<br />
 		<p:commandButton value="Adicionar produto"
+			onclick="PF('dialogProdutos').show()" />
+		<p:commandButton value="Cadastrar novo produto"
 			onclick="PF('dialogNovoProduto').show()" />
 		<p:commandButton value="Editar produto" disabled="true" />
 		<p:commandButton value="Excluir produto" disabled="true" />
@@ -93,7 +95,7 @@
 
 	<p:dialog widgetVar="dialogNovoProduto" modal="true" 
 		width="1300" appendTo="@(body)">
-		<h:form>
+		<h:form id="formNovoProduto">
 			<div class="ui-g">
 				<div class="ui-g-3">
 					<p:outputLabel value="Nome do produto: " />
@@ -104,16 +106,12 @@
 			</div>
 			<div class="ui-g">
 				<div class="ui-g-3">
-					<p:inputText style="width:100%" />
+					<p:inputText style="width:100%" value="#{contasMB.produto.nome}" />
 				</div>
 				<div class="ui-g-3">
 					<p:selectOneMenu value="#{contasMB.catProduto.id}">
 						<f:selectItems value="#{contasMB.catProdutos}" var="cat"
-							itemLabel="#{cat.nome}" itemValue="#{cat.id}"/>
-						<!-- <f:selectItem itemLabel="Insumos" itemValue="Insumos" />
-						<f:selectItem itemLabel="Porções" itemValue="Porções" />
-						<f:selectItem itemLabel="Drinks" itemValue="Drinks" />
-						<f:selectItem itemLabel="Refrigerantes" itemValue="Refrigerantes" /> -->
+							itemLabel="#{cat.nome}" itemValue="#{cat.id}"/>						
 					</p:selectOneMenu>
 				</div>
 				<div class="ui-g-1">
@@ -130,10 +128,10 @@
 			</div>
 			<div class="ui-g">
 				<div class="ui-g-3">
-					<p:inputText style="width:100%" />
+					<p:inputText style="width:100%" value="#{contasMB.produto.qtde}"/>
 				</div>
 				<div class="ui-g-3">
-					<p:inputText style="width:100%" disabled="true" />
+					<p:inputText style="width:100%" disabled="true" value="#{contasMB.produto.custoUnitario}" />
 				</div>
 			</div>
 			<div class="ui-g">
@@ -146,10 +144,10 @@
 			</div>
 			<div class="ui-g">
 				<div class="ui-g-3">
-					<p:inputText style="width:100%" />
+					<p:inputText style="width:100%" value="#{contasMB.produto.valorVenda}"/>
 				</div>
 				<div class="ui-g-3">
-					<p:calendar style="width:100%" />
+					<p:calendar style="width:100%" value="#{contasMB.produto.dataValidade}" />
 				</div>
 			</div>
 			<div class="ui-g">
@@ -183,22 +181,20 @@
 				<fieldset>
 					<legend>Produto composto</legend>
 					<div>
-						<p:selectOneMenu>
-							<f:selectItem itemLabel="Farinha de trigo" itemValue="farinha" />
-							<f:selectItem itemLabel="Ovo" itemValue="ovo" />
-							<f:selectItem itemLabel="Leite" itemValue="leite" />
-							<f:selectItem itemLabel="Acúcar" itemValue="acucar" />
+						<p:selectOneMenu value="contasMB.insumo.id">
+							<f:selectItems value="#{contasMB.insumos}" var="ins"
+											itemLabel="#{ins.nome}" itemValue="#{ins.id}"/>
 						</p:selectOneMenu>
 						<p:outputLabel value="Qtde: " />
-						<p:inputText />
-						<p:commandButton value="Adicionar" />
+						<p:inputText value="#{contasMB.insumo.qtde}"/>
+						<p:commandButton value="Adicionar" actionListener="#{contasMB.adicionaInsumo}"/>
 					</div>
-					<p:dataTable value="#{contasMB.insumos}">
+					<p:dataTable id="tabInsumos" value="#{contasMB.produtos}">
 						<p:column headerText="Produto">
-							<h:outputText value="#{produto}" />
+							<h:outputText value="#{contasMB.insumo.id}" />
 						</p:column>
 						<p:column headerText="Qtde">
-							<h:outputText value="#{qtde}" />
+							<h:outputText value="#{contasMB.insumo.qtde}" />
 						</p:column>
 						<p:column>
 							<p:commandButton value="remover" />
@@ -206,8 +202,67 @@
 					</p:dataTable>
 				</fieldset>
 			</p:panel>
-			<p:commandButton value="Adicionar" />
+			<p:commandButton value="Adicionar" actionListener="#{contasMB.salvarProduto}" update="@all" />
 			<p:commandButton value="Cancelar" />
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog widgetVar="dialogProdutos" modal="true" width="1500" appendTo="@(body)">
+		<h:form id="formAddProdutos">
+			<fieldset>
+				<legend><h1>Filtros</h1></legend>
+				<div class="ui-g">
+					<div class="ui-g-2">
+						<h:outputText value="Código do produto:"/>
+					</div>
+					<div class="ui-g-2">
+						<h:outputText value="Nome:"/>				
+					</div>
+					<div class="ui-g-2">
+						<h:outputText value="Categoria:"/>				
+					</div>
+				</div>
+				<div class="ui-g">
+					<div class="ui-g-2">
+						<h:inputText value="#{contasMB.filtro.id}"/>
+					</div>
+					<div class="ui-g-2" >
+						<h:inputText value="#{contasMB.filtro.nome}"/>
+					</div>
+					<div class="ui-g-2">
+						<p:selectOneMenu value="#{contasMB.cat.id}">
+							<f:selectItems value="#{contasMB.catProdutos}" var="cat"
+								itemLabel="#{cat.nome}" itemValue="#{cat.id}"/>						
+					</p:selectOneMenu>				
+					</div>
+				</div>
+			</fieldset>
+				<div>
+					<p:commandButton value="Buscar" actionListener="#{contasMB.buscarProdutos}"/>
+				</div>
+			<p:dataTable id="dtProdutos" var="produto" value="#{contasMB.produtos}">
+			<p:column headerText="Código">
+				<h:outputText value="#{produto.id}" />
+			</p:column>
+			<p:column headerText="Nome">
+				<h:outputText value="#{produto.nome}" />
+			</p:column>
+			<p:column headerText="Categoria">
+				<h:outputText value="#{produto.categoria.nome}" />
+			</p:column>
+			<p:column headerText="Custo (un)">
+				<h:outputText value="#{produto.custoUnitario}" />
+			</p:column>
+			<p:column headerText="Qtde">
+				<h:outputText value="#{produto.qtde}" />
+			</p:column>
+			<p:column headerText="Un. Medida">
+				<h:outputText value="#{produto.unidadeMedida.unidade}" />
+			</p:column>
+			<p:column headerText="Data de validade">
+				<h:outputText value="#{produto.dataValidade}" />
+			</p:column>
+		</p:dataTable>
 		</h:form>
 	</p:dialog>
 </h:body>
