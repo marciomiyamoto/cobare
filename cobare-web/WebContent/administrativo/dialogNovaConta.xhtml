@@ -109,9 +109,9 @@
 					<p:inputText style="width:100%" value="#{contasMB.produto.nome}" />
 				</div>
 				<div class="ui-g-3">
-					<p:selectOneMenu value="#{contasMB.catProduto.id}">
+					<p:selectOneMenu value="#{contasMB.catProduto}" converter="genericConverter">
 						<f:selectItems value="#{contasMB.catProdutos}" var="cat"
-							itemLabel="#{cat.nome}" itemValue="#{cat.id}"/>						
+							itemLabel="#{cat.nome}" itemValue="#{cat}"/>						
 					</p:selectOneMenu>
 				</div>
 				<div class="ui-g-1">
@@ -128,23 +128,23 @@
 			</div>
 			<div class="ui-g">
 				<div class="ui-g-3">
-					<p:inputText style="width:100%" value="#{contasMB.produto.qtde}"/>
+					<p:inputNumber style="width:100%" value="#{contasMB.produto.qtde}"/>
 				</div>
 				<div class="ui-g-3">
-					<p:inputText style="width:100%" disabled="true" value="#{contasMB.produto.custoUnitario}" />
+					<p:inputNumber style="width:100%" disabled="true" value="#{contasMB.produto.custoUnitario}" />
 				</div>
 			</div>
 			<div class="ui-g">
-				<div class="ui-g-2">
+				<div class="ui-g-3">
 					<p:outputLabel value="Valor de venda (unitário): " />
 				</div>
-				<div class="ui-g-2">
+				<div class="ui-g-3">
 					<p:outputLabel value="Data de validade: " />
 				</div>
 			</div>
 			<div class="ui-g">
 				<div class="ui-g-3">
-					<p:inputText style="width:100%" value="#{contasMB.produto.valorVenda}"/>
+					<p:inputNumber style="width:100%" value="#{contasMB.produto.valorVenda}"/>
 				</div>
 				<div class="ui-g-3">
 					<p:calendar style="width:100%" value="#{contasMB.produto.dataValidade}" />
@@ -160,41 +160,41 @@
 			</div>
 			<div class="ui-g">
 				<div class="ui-g-2">
-					<p:selectOneMenu value="#{contasMB.unMedida.id}">
+					<p:selectOneMenu value="#{contasMB.unMedida}" converter="genericConverter">
 						<f:selectItems value="#{contasMB.unMedidas}" var="un"
-							itemLabel="#{un.unidade}" itemValue="#{un.id}"/>
+							itemLabel="#{un.unidade}" itemValue="#{un}"/>
 					</p:selectOneMenu>
 				</div>
 				<div class="ui-g-1">
 					<p:commandButton value="+" />
 				</div>
 				<div class="ui-g-2">
-					<p:selectOneRadio value="#{contasMB.flagProdutoComposto}">
+					<p:selectOneRadio value="#{contasMB.produto.produtoComposto}" disabled="#{contasMB.catProduto.id == 1 }">
 						<f:selectItem itemLabel="Sim" itemValue="true" />
 						<f:selectItem itemLabel="Não" itemValue="false" />
 						<p:ajax update="panel" />
 					</p:selectOneRadio>
 				</div>
 			</div>
-			<p:panel id="panel" visible="#{contasMB.flagProdutoComposto}"
+			<p:panel id="panel" visible="#{contasMB.produto.produtoComposto}"
 				toggleable="true">
 				<fieldset>
 					<legend>Produto composto</legend>
 					<div>
-						<p:selectOneMenu value="contasMB.insumo.id">
+						<p:selectOneMenu value="#{contasMB.insumo}" converter="genericConverter">
 							<f:selectItems value="#{contasMB.insumos}" var="ins"
-											itemLabel="#{ins.nome}" itemValue="#{ins.id}"/>
+											itemLabel="#{ins.nome}" itemValue="#{ins}"/>
 						</p:selectOneMenu>
 						<p:outputLabel value="Qtde: " />
 						<p:inputText value="#{contasMB.insumo.qtde}"/>
 						<p:commandButton value="Adicionar" actionListener="#{contasMB.adicionaInsumo}"/>
 					</div>
-					<p:dataTable id="tabInsumos" value="#{contasMB.produtos}">
+					<p:dataTable id="tabInsumos" var="produto" value="#{contasMB.produtos}">
 						<p:column headerText="Produto">
-							<h:outputText value="#{contasMB.insumo.id}" />
+							<h:outputText value="#{produto.nome}" />
 						</p:column>
 						<p:column headerText="Qtde">
-							<h:outputText value="#{contasMB.insumo.qtde}" />
+							<h:outputText value="#{produto.qtde}" />
 						</p:column>
 						<p:column>
 							<p:commandButton value="remover" />
@@ -231,6 +231,7 @@
 					</div>
 					<div class="ui-g-2">
 						<p:selectOneMenu value="#{contasMB.cat.id}">
+							<f:selectItem itemLabel="---" itemValue="" />
 							<f:selectItems value="#{contasMB.catProdutos}" var="cat"
 								itemLabel="#{cat.nome}" itemValue="#{cat.id}"/>						
 					</p:selectOneMenu>				
@@ -240,29 +241,33 @@
 				<div>
 					<p:commandButton value="Buscar" actionListener="#{contasMB.buscarProdutos}"/>
 				</div>
-			<p:dataTable id="dtProdutos" var="produto" value="#{contasMB.produtos}">
-			<p:column headerText="Código">
-				<h:outputText value="#{produto.id}" />
-			</p:column>
-			<p:column headerText="Nome">
-				<h:outputText value="#{produto.nome}" />
-			</p:column>
-			<p:column headerText="Categoria">
-				<h:outputText value="#{produto.categoria.nome}" />
-			</p:column>
-			<p:column headerText="Custo (un)">
-				<h:outputText value="#{produto.custoUnitario}" />
-			</p:column>
-			<p:column headerText="Qtde">
-				<h:outputText value="#{produto.qtde}" />
-			</p:column>
-			<p:column headerText="Un. Medida">
-				<h:outputText value="#{produto.unidadeMedida.unidade}" />
-			</p:column>
-			<p:column headerText="Data de validade">
-				<h:outputText value="#{produto.dataValidade}" />
-			</p:column>
-		</p:dataTable>
+			<p:dataTable id="dtProdutos" var="produto" value="#{contasMB.produtos}"	reflow="true" rows="15" paginator="true" 
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" selection="#{contasMB.produtosSelecionados}" rowKey="#{produto.id}">
+                
+		        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+				<p:column headerText="Código">
+					<h:outputText value="#{produto.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{produto.nome}" />
+				</p:column>
+				<p:column headerText="Categoria">
+					<h:outputText value="#{produto.categoria.nome}" />
+				</p:column>
+				<p:column headerText="Custo (un)">
+					<h:outputText value="#{produto.custoUnitario}" />
+				</p:column>
+				<p:column headerText="Qtde">
+					<h:outputText value="#{produto.qtde}" />
+				</p:column>
+				<p:column headerText="Un. Medida">
+					<h:outputText value="#{produto.unidadeMedida.unidade}" />
+				</p:column>
+				<p:column headerText="Data de validade">
+					<h:outputText value="#{produto.dataValidade}" />
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</p:dialog>
 </h:body>

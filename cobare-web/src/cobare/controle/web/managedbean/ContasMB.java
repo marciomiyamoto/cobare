@@ -34,6 +34,7 @@ public class ContasMB {
 	private List<CategoriaProduto> catProdutos;
 	private Produto produto;
 	private List <Produto> produtos;
+	private List <Produto> produtosSelecionados;
 	private Produto insumo;
 	private List <Produto> insumos;
 	
@@ -51,6 +52,7 @@ public class ContasMB {
 		catProdutos = new ArrayList<CategoriaProduto>();
 		produto = new Produto();
 		produtos = new ArrayList<Produto>();
+		produtosSelecionados = new ArrayList<Produto>();
 		insumo = new Produto();
 		insumos = new ArrayList<Produto>();
 		/* Utilizando o command para chamar a fachada e indexando cada command 
@@ -111,6 +113,9 @@ public class ContasMB {
 	public void salvarProduto() {
 		produto.setCategoria(catProduto);
 		produto.setUnidadeMedida(unMedida);
+		if(produto.getProdutoComposto() && produtos != null) {
+			produto.setInsumos(produtos);
+		}
 		command = commands.get("SALVAR");
 		Resultado rs = command.execute(produto);
 		if(rs.getMsg() != null) {
@@ -121,8 +126,8 @@ public class ContasMB {
 	}
 	public void adicionaInsumo() {
 		RequestContext req = RequestContext.getCurrentInstance();
-//		Produto insumo = new Produto();
 		produtos.add(insumo);
+//		insumo = null;
 		req.update("formNovoProduto:tabInsumos");
 	}
 	CategoriaProduto cat = new CategoriaProduto();
@@ -255,6 +260,14 @@ public class ContasMB {
 
 	public void setFiltro(Produto filtro) {
 		this.filtro = filtro;
+	}
+
+	public List<Produto> getProdutosSelecionados() {
+		return produtosSelecionados;
+	}
+
+	public void setProdutosSelecionados(List<Produto> produtosSelecionados) {
+		this.produtosSelecionados = produtosSelecionados;
 	}
 	
 }

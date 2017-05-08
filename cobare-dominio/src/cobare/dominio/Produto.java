@@ -9,9 +9,9 @@ public class Produto extends EntidadeDominio {
 	private CategoriaProduto categoria;
 	private boolean produtoComposto;
 	private String nome;
-	private double qtde;
-	private double custoUnitario;
-	private double valorVenda;
+	private Double qtde;
+	private Double custoUnitario;
+	private Double valorVenda;
 	private Date dataValidade;
 	private List <Produto> insumos;
 	
@@ -39,22 +39,22 @@ public class Produto extends EntidadeDominio {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public double getQtde() {
+	public Double getQtde() {
 		return qtde;
 	}
-	public void setQtde(double qtde) {
+	public void setQtde(Double qtde) {
 		this.qtde = qtde;
 	}
-	public double getCustoUnitario() {
+	public Double getCustoUnitario() {
 		return custoUnitario;
 	}
-	public void setCustoUnitario(double custoUnitario) {
+	public void setCustoUnitario(Double custoUnitario) {
 		this.custoUnitario = custoUnitario;
 	}
-	public double getValorVenda() {
+	public Double getValorVenda() {
 		return valorVenda;
 	}
-	public void setValorVenda(double valorVenda) {
+	public void setValorVenda(Double valorVenda) {
 		this.valorVenda = valorVenda;
 	}
 	public Date getDataValidade() {

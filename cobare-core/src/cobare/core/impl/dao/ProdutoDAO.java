@@ -5,16 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import cobare.dominio.CategoriaProduto;
-import cobare.dominio.Cidade;
-import cobare.dominio.Endereco;
 import cobare.dominio.EntidadeDominio;
-import cobare.dominio.Estado;
-import cobare.dominio.Fornecedor;
 import cobare.dominio.Produto;
-import cobare.dominio.Telefone;
 import cobare.dominio.UnidadeMedida;
 
 public class ProdutoDAO extends AbstractJdbcDAO {
@@ -71,9 +67,11 @@ public class ProdutoDAO extends AbstractJdbcDAO {
 			if (null != generatedKeys && generatedKeys.next()) {
 			     produto.setId(generatedKeys.getInt(1));
 			}
+			connection.commit();
 			// SALVANDO INSUMOS
-			if(produto.getProdutoComposto() && !produto.getInsumos().isEmpty()) {
-				while(produto.getInsumos().iterator().hasNext()) {
+			if(produto.getProdutoComposto() && produto.getInsumos() != null) {
+				Iterator iterator = produto.getInsumos().iterator();
+				while(iterator.hasNext()) {
 					sql.setLength(0);
 					sql.append("INSERT INTO Produto_composto ");
 					sql.append("(id_produto_composto, ");
@@ -81,16 +79,18 @@ public class ProdutoDAO extends AbstractJdbcDAO {
 					sql.append("VALUES(?,?)");
 					try {
 						connection.setAutoCommit(false);
-						
-						pst = connection.prepareStatement(sql.toString(), new String[] {"id"});
+						pst = null;
+						Produto insumo = (Produto)iterator.next();
+						pst = connection.prepareStatement(sql.toString());
 						pst.setInt(1, produto.getId());
-						pst.setInt(2, produto.getInsumos().iterator().next().getId());
+						pst.setInt(2, insumo.getId());
 						pst.executeUpdate();		
 						
-						generatedKeys = pst.getGeneratedKeys();
-						if (null != generatedKeys && generatedKeys.next()) {
-						     produto.getInsumos().iterator().next().setId(generatedKeys.getInt(1));
-						}
+//						generatedKeys = pst.getGeneratedKeys();
+//						if (null != generatedKeys && generatedKeys.next()) {
+//						     produto.getInsumos().iterator().next().setId(generatedKeys.getInt(1));
+//						}
+						connection.commit();
 					} catch(SQLException e) {
 						try {
 							connection.rollback();
@@ -98,6 +98,7 @@ public class ProdutoDAO extends AbstractJdbcDAO {
 							e1.printStackTrace();
 						}
 						e.printStackTrace();
+						break;
 					}
 				}
 			}
